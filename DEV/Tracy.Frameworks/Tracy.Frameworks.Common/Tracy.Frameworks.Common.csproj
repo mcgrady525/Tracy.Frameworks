@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{04A1FB4B-D298-47A6-866B-47092E1EA628}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tracy.Frameworks.Common</RootNamespace>
+    <AssemblyName>Tracy.Frameworks.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\EntityFramework.4.2.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\NPOI.1.2.3\lib\2.0\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="LZ4, Version=1.0.10.93, Culture=neutral, PublicKeyToken=62e1b5ec1eec9bdd, processorArchitecture=MSIL">
+      <HintPath>..\packages\lz4net.1.0.10.93\lib\net4-client\LZ4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=1.2.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\NPOI.1.2.3\lib\2.0\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodeTimer.cs" />
+    <Compile Include="Configuration\AppConfigHelper.cs" />
+    <Compile Include="Const\KnownMIMEs.cs" />
+    <Compile Include="Exceptions\NoAuthorizationException.cs" />
+    <Compile Include="Exceptions\ValidationException\ValidationEntityState.cs" />
+    <Compile Include="Exceptions\ValidationException\ValidationEntry.cs" />
+    <Compile Include="Exceptions\ValidationException\ValidationError.cs" />
+    <Compile Include="Exceptions\ValidationException\ValidationException.cs" />
+    <Compile Include="Exceptions\ValidationException\ValidationResult.cs" />
+    <Compile Include="Extends\ArgumentExtension.cs" />
+    <Compile Include="Extends\DateTimeExtension.cs" />
+    <Compile Include="Extends\EFExtension.cs" />
+    <Compile Include="Extends\IntExtension.cs" />
+    <Compile Include="Extends\PropertyExtension.cs" />
+    <Compile Include="Extends\SecurityExtension.cs" />
+    <Compile Include="FTP\FTPHelper.cs" />
+    <Compile Include="Others\ClassValueCopierHelper.cs" />
+    <Compile Include="Regex\RegexHelper.cs" />
+    <Compile Include="Result\PagingResult.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\JsonDoNetSerializer.cs" />
+    <Compile Include="Serialization\JsSerializer.cs" />
+    <Compile Include="Serialization\SerializationFormat.cs" />
+    <Compile Include="Serialization\StandardSerializer.cs" />
+    <Compile Include="Serialization\XMLSerializer.cs" />
+    <Compile Include="Translation\BasicChineseConverter.cs" />
+    <Compile Include="Translation\NativeMethods.cs" />
+    <Compile Include="Translation\TranslationDirection.cs" />
+    <Compile Include="Upload_Download\UploadHelper.cs" />
+    <Compile Include="Web\CacheHelper.cs" />
+    <Compile Include="Const\DateFormat.cs" />
+    <Compile Include="Const\LogFormat.cs" />
+    <Compile Include="Web\CookieHelper.cs" />
+    <Compile Include="FormatDate\DateTimeHelper.cs" />
+    <Compile Include="DB\SqlHelper.cs" />
+    <Compile Include="DB\SqlHelper.Injection.cs" />
+    <Compile Include="DB\SqlHelper.Pager.cs" />
+    <Compile Include="Security\EncryptHelper.cs" />
+    <Compile Include="Others\EnumHelper.cs" />
+    <Compile Include="Office\ExcelHelper.cs" />
+    <Compile Include="Extends\CollectionExtension.cs" />
+    <Compile Include="Extends\EnumExtension.cs" />
+    <Compile Include="Extends\FileExtension.cs" />
+    <Compile Include="Extends\StringExtension.cs" />
+    <Compile Include="Log\FileLog.cs" />
+    <Compile Include="Log\ILog.cs" />
+    <Compile Include="Office\NPOIHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\SessionHelper.cs" />
+    <Compile Include="Tree\TreeNode.cs" />
+    <Compile Include="Yzm\YZMHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Config\exceptionhandling.config" />
+    <None Include="Config\logging.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="IO\" />
+    <Folder Include="Mail\" />
+    <Folder Include="SMS\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
