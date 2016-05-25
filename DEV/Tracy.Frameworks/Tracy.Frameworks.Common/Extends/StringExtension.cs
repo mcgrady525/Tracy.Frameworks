@@ -1390,6 +1390,7 @@ namespace Tracy.Frameworks.Common.Extends
         {
             var settings = new JsonSerializerSettings();
             settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;//兼容<=4.5版本，默认序列化成微软的datetime json格式，e.g. "\/Date(1198908717056+0800)\/"，如果要输出ISO标准时间，可以通过dateTimeFormat进行设置。
+            settings.StringEscapeHandling = StringEscapeHandling.EscapeHtml;//兼容JavaScriptSerializer对html字符串的处理。
 
             if (ignoreNullValue)
             {
