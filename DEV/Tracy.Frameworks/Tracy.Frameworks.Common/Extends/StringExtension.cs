@@ -1386,29 +1386,17 @@ namespace Tracy.Frameworks.Common.Extends
         /// <param name="ignoreNullValue">值为null的不进行序列化（比如某个属性的值为null，序列化后没有此属性存在)</param>
         /// <returns></returns>
         public static string ToJson(this object input, bool isNeedFormat = false, bool isCanCyclicReference = true,
-                                    string dateTimeFormat = null, int? typeNameHandling = null, bool ignoreNullValue = true)
+                                    string dateTimeFormat = null, int? typeNameHandling = null, bool ignoreNullValue = true, bool isEscapeHtml= false)
         {
+            var format = isNeedFormat ? Formatting.Indented : Formatting.None;
             var settings = new JsonSerializerSettings();
             settings.DateFormatHandling = DateFormatHandling.MicrosoftDateFormat;//兼容<=4.5版本，默认序列化成微软的datetime json格式，e.g. "\/Date(1198908717056+0800)\/"，如果要输出ISO标准时间，可以通过dateTimeFormat进行设置。
-            settings.StringEscapeHandling = StringEscapeHandling.EscapeHtml;//兼容JavaScriptSerializer对html字符串的处理。
-
-            if (ignoreNullValue)
-            {
-                settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            }
-
-            if (typeNameHandling.HasValue)
-            {
-                settings.TypeNameHandling = typeNameHandling.ToEnum<TypeNameHandling>();
-                settings.TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
-            }
 
             if (isCanCyclicReference)
             {
                 settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 settings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
             }
-
             if (!string.IsNullOrWhiteSpace(dateTimeFormat))
             {
                 var jsonConverter = new List<JsonConverter>()
@@ -1417,9 +1405,19 @@ namespace Tracy.Frameworks.Common.Extends
                 };
                 settings.Converters = jsonConverter;
             }
-
-            var format = isNeedFormat ? Formatting.Indented : Formatting.None;
-
+            if (typeNameHandling.HasValue)
+            {
+                settings.TypeNameHandling = typeNameHandling.ToEnum<TypeNameHandling>();
+                settings.TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple;
+            }
+            if (ignoreNullValue)
+            {
+                settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            }
+            if (isEscapeHtml)
+            {
+                settings.StringEscapeHandling = StringEscapeHandling.EscapeHtml;//兼容JavaScriptSerializer对html字符串的处理。                
+            } 
             var json = JsonConvert.SerializeObject(input, format, settings);
             return json;
         }
@@ -1439,6 +1437,7 @@ namespace Tracy.Frameworks.Common.Extends
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                DateFormatHandling= DateFormatHandling.MicrosoftDateFormat,
             };
             if (typeNameHandling.HasValue)
             {
@@ -1473,6 +1472,7 @@ namespace Tracy.Frameworks.Common.Extends
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
             };
             if (typeNameHandling.HasValue)
             {
