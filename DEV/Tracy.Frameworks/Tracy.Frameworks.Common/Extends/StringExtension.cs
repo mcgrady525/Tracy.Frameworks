@@ -90,7 +90,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return ma.Groups[1].Value.Replace(" ", "").ToInt(defaultValue);
             }
-            else {
+            else
+            {
                 return defaultValue;
             }
         }
@@ -141,7 +142,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return ma.Groups[1].Value.Replace(" ", "").ToFloat(defaultValue);
             }
-            else {
+            else
+            {
                 return defaultValue;
             }
         }
@@ -207,7 +209,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return ma.Groups[1].Value.Replace(" ", "").ToDecimal(defaultValue);
             }
-            else {
+            else
+            {
                 return defaultValue;
             }
         }
@@ -367,7 +370,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return b;
             }
-            else {
+            else
+            {
                 return defaultValue;
             }
         }
@@ -511,7 +515,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return "";
             }
-            else {
+            else
+            {
                 return input.Trim();
             }
         }
@@ -541,7 +546,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/') + "/");
             }
-            else {
+            else
+            {
                 return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/'));
             }
         }
@@ -560,7 +566,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/') + "/");
             }
-            else {
+            else
+            {
                 return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/'));
             }
         }
@@ -620,7 +627,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return input;
             }
-            else {
+            else
+            {
                 return input.Substring(input.Length - length);
             }
         }
@@ -637,7 +645,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return input;
             }
-            else {
+            else
+            {
                 return input.Substring(0, length);
             }
         }
@@ -664,7 +673,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return (T)Enum.ToObject(type, value);
             }
-            else {
+            else
+            {
                 return defaultValue;
             }
         }
@@ -699,7 +709,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return (T)Enum.ToObject(type, value);
             }
-            else {
+            else
+            {
                 return defaultValue;
             }
         }
@@ -816,7 +827,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return defaultValue;
             }
-            else {
+            else
+            {
                 return Convert.ToInt32(value);
             }
         }
@@ -862,7 +874,8 @@ namespace Tracy.Frameworks.Common.Extends
             DateTime d;
             if (DateTime.TryParse(str, out d))
                 return d;
-            else {
+            else
+            {
                 if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy'/'MM'/'dd HH:mm:ss", "MM'/'dd'/'yyyy HH:mm:ss", "yyyy-M-d", "yyy-M-d hh:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                     return d;
                 else
@@ -903,14 +916,15 @@ namespace Tracy.Frameworks.Common.Extends
             DateTime d;
             if (DateTime.TryParse(str, out d))
                 return d;
-            else {
+            else
+            {
                 if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                     return d;
                 else
                     if (default(DateTime) == defaultValue)
-                    return MinDate;
-                else
-                    return defaultValue;
+                        return MinDate;
+                    else
+                        return defaultValue;
             }
         }
 
@@ -984,7 +998,8 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 return t;
             }
-            else {
+            else
+            {
                 return defaultValue;
             }
         }
@@ -1071,7 +1086,8 @@ namespace Tracy.Frameworks.Common.Extends
                 {
                     kvs[key] += "," + ma.Groups["value"].Value;
                 }
-                else {
+                else
+                {
                     kvs[key] = ma.Groups["value"].Value;
                 }
             }
@@ -1104,7 +1120,8 @@ namespace Tracy.Frameworks.Common.Extends
                 //　如果 value 前几个字符是数字，有BUG
                 //return reg.Replace(url, "$1$2" + HttpUtility.UrlEncode(value, encode) + "$4");
 
-                return reg.Replace(url, (ma) => {
+                return reg.Replace(url, (ma) =>
+                {
                     if (ma.Success)
                     {
                         //var a = string.Format("{0}{1}{2}{3}", ma.Groups[1].Value, ma.Groups[2].Value, HttpUtility.UrlEncode(value, encode), ma.Groups[4].Value);
@@ -1115,7 +1132,8 @@ namespace Tracy.Frameworks.Common.Extends
                 });
 
             }
-            else {
+            else
+            {
                 return url + (url.IndexOf('?') > -1 ? "&" : "?") + key + "=" + HttpUtility.UrlEncode(value, encode);
             }
         }
@@ -1214,7 +1232,8 @@ namespace Tracy.Frameworks.Common.Extends
 
             //Regex rx = new Regex(@"(<(a|img|script|link)[^>]*(src|href)=(?<quot>[""']))(\.\./)*(VMaster/)*\$(?<sub>[^'""]*)\6", RegexOptions.IgnoreCase | RegexOptions.Multiline);
             Regex rx = new Regex(@"(<(a|img|script|link)[^>]*(src|href)=(?<quot>[""']))(\.\./)*(VMaster/)*" + placeHolder + @"(?<sub>[^'""]*)\6", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var outputHtml = rx.Replace(ctx, (ma) => {
+            var outputHtml = rx.Replace(ctx, (ma) =>
+            {
                 if (ma.Success)
                 {
                     return ma.Groups[1] + ma.Groups["sub"].Value.FixUrl(realSite) + ma.Groups["quot"].Value;
@@ -1386,7 +1405,7 @@ namespace Tracy.Frameworks.Common.Extends
         /// <param name="ignoreNullValue">值为null的不进行序列化（比如某个属性的值为null，序列化后没有此属性存在)</param>
         /// <returns></returns>
         public static string ToJson(this object input, bool isNeedFormat = false, bool isCanCyclicReference = true,
-                                    string dateTimeFormat = null, int? typeNameHandling = null, bool ignoreNullValue = true, bool isEscapeHtml= false)
+                                    string dateTimeFormat = null, int? typeNameHandling = null, bool ignoreNullValue = true, bool isEscapeHtml = false)
         {
             var format = isNeedFormat ? Formatting.Indented : Formatting.None;
             var settings = new JsonSerializerSettings();
@@ -1417,7 +1436,7 @@ namespace Tracy.Frameworks.Common.Extends
             if (isEscapeHtml)
             {
                 settings.StringEscapeHandling = StringEscapeHandling.EscapeHtml;//兼容JavaScriptSerializer对html字符串的处理。                
-            } 
+            }
             var json = JsonConvert.SerializeObject(input, format, settings);
             return json;
         }
@@ -1437,7 +1456,7 @@ namespace Tracy.Frameworks.Common.Extends
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
                 PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-                DateFormatHandling= DateFormatHandling.MicrosoftDateFormat,
+                DateFormatHandling = DateFormatHandling.MicrosoftDateFormat,
             };
             if (typeNameHandling.HasValue)
             {
@@ -1553,9 +1572,9 @@ namespace Tracy.Frameworks.Common.Extends
             }
         }
 
-        #endregion 
         #endregion
-        
+        #endregion
+
         #region 压缩与解压 {4800C066-A10B-40A7-B6BA-B9F91CCE8DE6}
 
         /// <summary>
@@ -1661,6 +1680,32 @@ namespace Tracy.Frameworks.Common.Extends
                 return jsonStr.FromJson<T>();
             }
             return default(T);
+        }
+
+        #endregion
+
+        #region 深拷贝和浅拷贝
+
+        /// <summary>
+        /// 深拷贝
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T DeepClone<T>(this T obj) where T : class
+        {
+            return obj != null ? obj.ToJson().FromJson<T>() : null;
+        }
+
+        /// <summary>
+        /// 浅拷贝
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public static T MemberwiseClone<T>(this T obj) where T : class
+        {
+            return obj != null ? obj.MemberwiseClone<T>() : null;
         }
 
         #endregion
