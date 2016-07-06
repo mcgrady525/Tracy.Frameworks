@@ -1697,16 +1697,7 @@ namespace Tracy.Frameworks.Common.Extends
             return obj != null ? obj.ToJson().FromJson<T>() : null;
         }
 
-        /// <summary>
-        /// 浅拷贝
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static T MemberwiseClone<T>(this T obj) where T : class
-        {
-            return obj != null ? obj.MemberwiseClone<T>() : null;
-        }
+        //浅拷贝可以使用Object.MemberwiseClone()方法
 
         #endregion
     }
