@@ -271,6 +271,30 @@ namespace Tracy.Frameworks.Common.Extends
         }
         #endregion
 
+        #region To byte[]
+
+        /// <summary>
+        /// string to byte[]
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static byte[] ToByteArray(this string str)
+        {
+            return System.Text.Encoding.UTF8.GetBytes(str);
+        }
+
+        /// <summary>
+        /// byte[] to string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string FromByteArray(this byte[] input)
+        {
+            return System.Text.Encoding.UTF8.GetString(input);
+        }
+
+        #endregion
+
         #region To long
         /// <summary>
         ///
