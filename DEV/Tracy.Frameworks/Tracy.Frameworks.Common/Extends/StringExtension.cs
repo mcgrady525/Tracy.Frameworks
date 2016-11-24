@@ -1540,13 +1540,14 @@ namespace Tracy.Frameworks.Common.Extends
         #region Xml 序列化，反序列化
 
         /// <summary>
-        /// 序列化
+        /// xml序列化
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
+        /// <param name="isNeedFormat">是否换行缩进,默认为false</param>
         /// <param name="onError"></param>
         /// <returns></returns>
-        public static string ToXml<T>(this T obj, Action<Exception> onError = null)
+        public static string ToXml<T>(this T obj, bool isNeedFormat = false, Action<Exception> onError = null)
         {
             try
             {
@@ -1555,7 +1556,7 @@ namespace Tracy.Frameworks.Common.Extends
                     System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings();
                     settings.OmitXmlDeclaration = true;//去掉xml默认的声明<?xml version="1.0"?>
                     settings.Encoding = Encoding.UTF8;
-                    settings.Indent = true;//换行缩进
+                    settings.Indent = isNeedFormat;//换行缩进,默认为false
                     using (var writer= System.Xml.XmlWriter.Create(stream, settings))
                     {
                         var serializer = new XmlSerializer(typeof(T));

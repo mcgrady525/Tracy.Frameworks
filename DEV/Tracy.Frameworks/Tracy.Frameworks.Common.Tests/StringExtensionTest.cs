@@ -35,7 +35,7 @@ namespace Tracy.Frameworks.Common.Tests
         public void StringExtension_FromXml_Test()
         {
             var user = GetUser();
-            var result = user.ToXml();
+            var result = user.ToXml(isNeedFormat:true);
 
             var user1 = result.FromXml<User>();
 
