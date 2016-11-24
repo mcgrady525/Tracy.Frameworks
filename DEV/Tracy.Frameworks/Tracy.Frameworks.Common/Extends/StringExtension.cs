@@ -1544,25 +1544,30 @@ namespace Tracy.Frameworks.Common.Extends
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
-        /// <param name="isNeedFormat">是否换行缩进,默认为false</param>
+        /// <param name="isOmitXmlDeclaration">去掉xml默认的声明，默认为false</param>
+        /// <param name="isOmitDefaultNamespaces">去掉默认的命名空间，默认为false</param>
+        /// <param name="isNeedFormat">//是否换行缩进,默认为false</param>
         /// <param name="onError"></param>
         /// <returns></returns>
-        public static string ToXml<T>(this T obj, bool isNeedFormat = false, Action<Exception> onError = null)
+        public static string ToXml<T>(this T obj, bool isOmitXmlDeclaration = false, bool isOmitDefaultNamespaces = false, bool isNeedFormat = false, Action<Exception> onError = null)
         {
             try
             {
                 using (var stream = new MemoryStream())
                 {
                     System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings();
-                    settings.OmitXmlDeclaration = true;//去掉xml默认的声明<?xml version="1.0"?>
+                    settings.OmitXmlDeclaration = isOmitXmlDeclaration;
                     settings.Encoding = Encoding.UTF8;
-                    settings.Indent = isNeedFormat;//换行缩进,默认为false
-                    using (var writer= System.Xml.XmlWriter.Create(stream, settings))
+                    settings.Indent = isNeedFormat;
+                    using (var writer = System.Xml.XmlWriter.Create(stream, settings))
                     {
                         var serializer = new XmlSerializer(typeof(T));
                         var namespaces = new XmlSerializerNamespaces();
-                        namespaces.Add("", "");//去掉默认的命名空间和前缀
-                        serializer.Serialize(writer, obj, namespaces);   
+                        if (isOmitDefaultNamespaces)
+                        {
+                            namespaces.Add("", "");
+                        }
+                        serializer.Serialize(writer, obj, namespaces);
                     }
                     return Encoding.UTF8.GetString(stream.GetBuffer());
                 }
