@@ -1552,10 +1552,17 @@ namespace Tracy.Frameworks.Common.Extends
             {
                 using (var stream = new MemoryStream())
                 {
-                    var serializer = new XmlSerializer(typeof(T));
-                    var namespaces = new XmlSerializerNamespaces();
-                    namespaces.Add("", "");
-                    serializer.Serialize(stream, obj, namespaces);
+                    System.Xml.XmlWriterSettings settings = new System.Xml.XmlWriterSettings();
+                    settings.OmitXmlDeclaration = true;//去掉xml默认的声明<?xml version="1.0"?>
+                    settings.Encoding = Encoding.UTF8;
+                    settings.Indent = true;//换行缩进
+                    using (var writer= System.Xml.XmlWriter.Create(stream, settings))
+                    {
+                        var serializer = new XmlSerializer(typeof(T));
+                        var namespaces = new XmlSerializerNamespaces();
+                        namespaces.Add("", "");//去掉默认的命名空间和前缀
+                        serializer.Serialize(writer, obj, namespaces);   
+                    }
                     return Encoding.UTF8.GetString(stream.GetBuffer());
                 }
             }

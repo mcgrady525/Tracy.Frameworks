@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,29 @@ namespace Tracy.Frameworks.Common.Tests
         {
             var user = this.GetUser();
             var result = user.ToJson(dateTimeFormat: "yyyy-MM-dd HH:mm:ss");
+        }
+
+        /// <summary>
+        /// xml序列化
+        /// </summary>
+        [Test]
+        public void StringExtension_ToXml_Test()
+        {
+            var user = GetUser();
+            var result = user.ToXml();
+        }
+
+        /// <summary>
+        /// xml反序列化
+        /// </summary>
+        [Test]
+        public void StringExtension_FromXml_Test()
+        {
+            var user = GetUser();
+            var result = user.ToXml();
+
+            var user1 = result.FromXml<User>();
+
         }
 
         [NUnit.Framework.Test]
