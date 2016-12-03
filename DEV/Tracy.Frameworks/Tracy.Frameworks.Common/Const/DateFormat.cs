@@ -99,5 +99,10 @@ namespace Tracy.Frameworks.Common.Const
         /// 短日期時间格式（中文） yyyy年MM月dd日 HH時mm分
         /// </summary>
         public const string CNDATEHOURMINUTE = "yyyy年MM月dd日 HH時mm分";
+
+        /// <summary>
+        /// 日期小时分钟秒毫秒
+        /// </summary>
+        public const string CNDATEHOURMINUTESECONDMILLSECOND = "yyyyMMddHHmmssfff";
     }
 }
