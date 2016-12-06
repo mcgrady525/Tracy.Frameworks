@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -76,70 +76,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeTimer.cs" />
-    <Compile Include="Configuration\AppConfigHelper.cs" />
-    <Compile Include="Const\KnownMIMEs.cs" />
+    <Compile Include="Consts\DateTimeTypeConst.cs" />
+    <Compile Include="Consts\LogTypeConst.cs" />
     <Compile Include="Exceptions\NoAuthorizationException.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationEntityState.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationEntry.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationError.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationException.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationResult.cs" />
-    <Compile Include="Extends\ArgumentExtension.cs" />
     <Compile Include="Extends\DateTimeExtension.cs" />
     <Compile Include="Extends\EFExtension.cs" />
     <Compile Include="Extends\IntExtension.cs" />
+    <Compile Include="Extends\ObjectExtension.cs" />
     <Compile Include="Extends\PropertyExtension.cs" />
-    <Compile Include="Extends\SecurityExtension.cs" />
-    <Compile Include="FTP\FTPHelper.cs" />
-    <Compile Include="Others\ClassValueCopierHelper.cs" />
-    <Compile Include="Regex\RegexHelper.cs" />
+    <Compile Include="Helpers\CodeTimerHelper.cs" />
+    <Compile Include="Helpers\ConfigHelper.cs" />
+    <Compile Include="Helpers\EncryptHelper.cs" />
+    <Compile Include="Helpers\NPOIHelper.cs" />
+    <Compile Include="Helpers\RegexHelper.cs" />
+    <Compile Include="Helpers\SqlHelper.cs" />
     <Compile Include="Result\PagingResult.cs" />
-    <Compile Include="Serialization\ISerializer.cs" />
-    <Compile Include="Serialization\JsonDoNetSerializer.cs" />
-    <Compile Include="Serialization\JsSerializer.cs" />
-    <Compile Include="Serialization\SerializationFormat.cs" />
-    <Compile Include="Serialization\StandardSerializer.cs" />
-    <Compile Include="Serialization\XMLSerializer.cs" />
-    <Compile Include="Translation\BasicChineseConverter.cs" />
-    <Compile Include="Translation\NativeMethods.cs" />
-    <Compile Include="Translation\TranslationDirection.cs" />
-    <Compile Include="Upload_Download\UploadHelper.cs" />
-    <Compile Include="Web\CacheHelper.cs" />
-    <Compile Include="Const\DateFormat.cs" />
-    <Compile Include="Const\LogFormat.cs" />
-    <Compile Include="Web\CookieHelper.cs" />
-    <Compile Include="FormatDate\DateTimeHelper.cs" />
-    <Compile Include="DB\SqlHelper.cs" />
-    <Compile Include="DB\SqlHelper.Injection.cs" />
-    <Compile Include="DB\SqlHelper.Pager.cs" />
-    <Compile Include="Security\EncryptHelper.cs" />
-    <Compile Include="Others\EnumHelper.cs" />
-    <Compile Include="Office\ExcelHelper.cs" />
     <Compile Include="Extends\CollectionExtension.cs" />
     <Compile Include="Extends\EnumExtension.cs" />
-    <Compile Include="Extends\FileExtension.cs" />
     <Compile Include="Extends\StringExtension.cs" />
-    <Compile Include="Log\FileLog.cs" />
-    <Compile Include="Log\ILog.cs" />
-    <Compile Include="Office\NPOIHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\SessionHelper.cs" />
-    <Compile Include="Tree\TreeNode.cs" />
-    <Compile Include="Yzm\YZMHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\exceptionhandling.config" />
-    <None Include="Config\logging.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IO\" />
-    <Folder Include="Mail\" />
-    <Folder Include="SMS\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -8,9 +8,8 @@ using System.ComponentModel;
 namespace Tracy.Frameworks.Common.Extends
 {
     /// <summary>
-    /// 描述:集合扩展类
-    /// 作者:鲁宁
-    /// 时间:2014/5/22 17:24:45
+    /// 集合扩展
+    /// 包括list
     /// </summary>
     public static class CollectionExtension
     {
@@ -282,7 +281,6 @@ namespace Tracy.Frameworks.Common.Extends
 
             return dt;
         }
-
 
         /// <summary>
         /// 如果Source 中不存在指定的值，返回指定的默認值

@@ -4,16 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-/*********************************************************
- * 开发人员：鲁宁
- * 创建时间：2014/7/16 10:16:36
- * 描述说明：整型扩展
- * 
- * 更改历史：
- * 
- * *******************************************************/
 namespace Tracy.Frameworks.Common.Extends
 {
+    /// <summary>
+    /// int扩展
+    /// </summary>
     public static class IntExtension
     {
         private const string ConvertToChinese_StringFormat = "#L#E#D#C#K#E#D#C#J#E#D#C#I#E#D#C#H#E#D#C#G#E#D#C#F#E#D#C#.0B0A##";

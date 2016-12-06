@@ -14,12 +14,13 @@ using System.Xml.Serialization;
 namespace Tracy.Frameworks.Common.Extends
 {
     /// <summary>
-    /// 描述:字符串扩展类
-    /// 作者:鲁宁
-    /// 时间:2013/10/14 17:24:45
+    /// string字符串扩展
+    /// 包括常用转换，序列化和解压缩等
     /// </summary>
     public static class StringExtension
     {
+        #region 常用转换
+
         #region To int
         /// <summary>
         ///
@@ -97,6 +98,90 @@ namespace Tracy.Frameworks.Common.Extends
         }
         #endregion
 
+        #region To long
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static long ToLong(this string str, long defaultValue)
+        {
+            long v;
+            if (long.TryParse(str, out v))
+                return v;
+            else
+                return defaultValue;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static long ToLong(this string str)
+        {
+            return str.ToLong(0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static long? ToLongOrNull(this string str)
+        {
+            long temp;
+            if (long.TryParse(str, out temp))
+                return temp;
+            else
+                return null;
+        }
+
+        #endregion
+
+        #region To ulong
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static ulong ToUlong(this string str, ulong defaultValue)
+        {
+            ulong v;
+            if (ulong.TryParse(str, out v))
+                return v;
+            else
+                return defaultValue;
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static ulong ToUlong(this string str)
+        {
+            return str.ToUlong(0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static ulong? ToUlongOrNull(this string str)
+        {
+            ulong temp;
+            if (ulong.TryParse(str, out temp))
+                return temp;
+            else
+                return null;
+        }
+
+        #endregion
+
         #region To Float
         /// <summary>
         ///
@@ -147,6 +232,48 @@ namespace Tracy.Frameworks.Common.Extends
                 return defaultValue;
             }
         }
+        #endregion
+
+        #region To Double
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static double ToDouble(this string str, double defaultValue)
+        {
+            double v;
+            if (double.TryParse(str, NumberStyles.Any, null, out v))
+                return v;
+            else
+                return defaultValue;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static double ToDouble(this string str)
+        {
+            return str.ToDouble(0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static double? ToDoubleOrNull(this string str)
+        {
+            double temp;
+            if (double.TryParse(str, out temp))
+                return temp;
+            else
+                return null;
+        }
+
         #endregion
 
         #region To Decimal
@@ -295,91 +422,7 @@ namespace Tracy.Frameworks.Common.Extends
 
         #endregion
 
-        #region To long
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public static long ToLong(this string str, long defaultValue)
-        {
-            long v;
-            if (long.TryParse(str, out v))
-                return v;
-            else
-                return defaultValue;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static long ToLong(this string str)
-        {
-            return str.ToLong(0);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static long? ToLongOrNull(this string str)
-        {
-            long temp;
-            if (long.TryParse(str, out temp))
-                return temp;
-            else
-                return null;
-        }
-
-        #endregion
-
-        #region To ulong
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public static ulong ToUlong(this string str, ulong defaultValue)
-        {
-            ulong v;
-            if (ulong.TryParse(str, out v))
-                return v;
-            else
-                return defaultValue;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static ulong ToUlong(this string str)
-        {
-            return str.ToUlong(0);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static ulong? ToUlongOrNull(this string str)
-        {
-            ulong temp;
-            if (ulong.TryParse(str, out temp))
-                return temp;
-            else
-                return null;
-        }
-
-        #endregion
-
-        #region ToBool
+        #region To Bool
 
         /// <summary>
         ///
@@ -428,256 +471,147 @@ namespace Tracy.Frameworks.Common.Extends
 
         #endregion
 
-        #region ToDouble
+        #region To DateTime
         /// <summary>
-        /// 
+        /// 轉換為日期，如果轉換失敗，返回預設值
         /// </summary>
         /// <param name="str"></param>
         /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static double ToDouble(this string str, double defaultValue)
+        public static DateTime? ToDateTimeOrNull(this string str, DateTime? defaultValue = null)
         {
-            double v;
-            if (double.TryParse(str, NumberStyles.Any, null, out v))
-                return v;
+            DateTime d;
+            if (DateTime.TryParse(str, out d))
+                return d;
+            else
+            {
+                if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy'/'MM'/'dd HH:mm:ss", "MM'/'dd'/'yyyy HH:mm:ss", "yyyy-M-d", "yyy-M-d hh:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+                    return d;
+                else
+                    return defaultValue;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="dateFmt"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static DateTime? ToDateTimeOrNull(this string str, string dateFmt, DateTime? defaultValue = null)
+        {
+            DateTime d;
+            //if (DateTime.TryParse(str, out d))
+            //    return d;
+            //else {
+            if (DateTime.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+                return d;
             else
                 return defaultValue;
+            //}        
+        }
+
+        private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
+
+        /// <summary>
+        /// 轉換日期，轉換失敗時，返回 defaultValue
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this string str, DateTime defaultValue = default(DateTime))
+        {
+            DateTime d;
+            if (DateTime.TryParse(str, out d))
+                return d;
+            else
+            {
+                if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+                    return d;
+                else
+                    if (default(DateTime) == defaultValue)
+                        return MinDate;
+                    else
+                        return defaultValue;
+            }
         }
 
         /// <summary>
-        /// 
+        /// 按給定日期格式進行日期轉換
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="dateFmt"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static DateTime ToDateTime(this string str, string dateFmt, DateTime defaultValue)
+        {
+            DateTime d;
+            //if (DateTime.TryParse(str, out d))
+            //    return d;
+            //else {
+            if (DateTime.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+                return d;
+            else
+                return defaultValue;
+            //}            
+        }
+
+        /// <summary>
+        /// 轉換為日期，轉換失敗時，返回null
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static double ToDouble(this string str)
+        public static DateTime? ToDateTimeOrNull(this string str)
         {
-            return str.ToDouble(0);
+            return str.ToDateTimeOrNull(null);
         }
 
         /// <summary>
-        /// 
+        /// 轉換日期，轉換失敗時，返回當前時間
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static double? ToDoubleOrNull(this string str)
+        public static DateTime ToDateTime(this string str)
         {
-            double temp;
-            if (double.TryParse(str, out temp))
-                return temp;
-            else
-                return null;
+            return str.ToDateTime(DateTime.Now);
         }
 
+        
         #endregion
 
-        #region OtherTransform
-
+        #region To TimeSpan
         /// <summary>
-        /// 用指定連接子連接字串清單所有元素
+        ///
         /// </summary>
-        /// <param name="input">字串清單</param>
-        /// <param name="separator">連接子</param>
+        /// <param name="str"></param>
+        /// <param name="defaultValue"></param>
         /// <returns></returns>
-        public static string ToString(this List<string> input, string separator)
+        public static TimeSpan ToTimeSpan(this string str, TimeSpan defaultValue)
         {
-            if (input == null)
+            TimeSpan t;
+            if (TimeSpan.TryParse(str, out t))
             {
-                return string.Empty;
+                return t;
             }
-            return string.Join(separator, input);
-        }
-
-        /// <summary>
-        /// 數字格式轉換顯示
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string ToString(this Object input, string n)
-        {
-            if (input == null)
+            else
             {
-                return string.Empty;
+                return defaultValue;
             }
-            return input.ToString().ToDecimal().ToString(n);
-        }
-
-        /// <summary>
-        /// 轉成一般常用格式 yyyy-MM-dd
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string ToStringNormal(this DateTime input)
-        {
-            return input.ToString("yyyy-MM-dd");
-        }
-
-        /// <summary>
-        /// 轉成一般常用格式 yyyy-MM-dd
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string ToStringNormal(this Object input)
-        {
-            if (null != input)
-            {
-                if (input.ToString().IsDateTime())
-                {
-                    return input.ToString().ToDateTime().ToString("yyyy-MM-dd");
-                }
-            }
-            return null;
         }
 
         /// <summary>
         ///
         /// </summary>
-        /// <param name="input"></param>
+        /// <param name="str"></param>
         /// <returns></returns>
-        public static string SafeTrim(this string input)
+        public static TimeSpan ToTimeSpan(this string str)
         {
-            if (string.IsNullOrEmpty(input))
-            {
-                return "";
-            }
-            else
-            {
-                return input.Trim();
-            }
+            return str.ToTimeSpan(new TimeSpan());
         }
-        /// <summary>
-        /// 取得網站的RootURL,結果有加"/"
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string GetRootURL(this Uri input)
-        {
-            if (null == input)
-                throw new ArgumentNullException("input");
-            return input.AbsoluteUri.Replace(input.PathAndQuery, "/");
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="hasPathChar">是否在末尾帶"/"</param>
-        /// <returns></returns>
-        public static string GetApplicationURL(this HttpRequest input, bool hasPathChar = true)
-        {
-            if (null == input)
-                throw new ArgumentNullException("input");
-            if (hasPathChar)
-            {
-                return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/') + "/");
-            }
-            else
-            {
-                return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/'));
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="hasPathChar"></param>
-        /// <returns></returns>
-        public static string GetApplicationUrl(this HttpRequestBase input, bool hasPathChar = true)
-        {
-            if (null == input)
-                throw new ArgumentNullException("input");
-            if (hasPathChar)
-            {
-                return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/') + "/");
-            }
-            else
-            {
-                return input.Url.AbsoluteUri.Replace(input.Url.PathAndQuery, input.ApplicationPath.TrimEnd('/'));
-            }
-        }
-
-        /// <summary>
-        /// 只從QueryString或Form裡讀內容
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static string Form2(this HttpRequest input, string key)
-        {
-            if (null == input)
-                throw new ArgumentNullException("input");
-            string str = input.QueryString[key];
-            if (str != null)
-            {
-                return str;
-            }
-            str = input.Form[key];
-            if (str != null)
-            {
-                return str;
-            }
-            return null;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsNullOrEmpty(this string input)
-        {
-            return string.IsNullOrEmpty(input);
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static bool IsNullOrWhiteSpace(this string input)
-        {
-            return string.IsNullOrWhiteSpace(input);
-        }
-
-        /// <summary>
-        /// 在後邊取多少個字元
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        public static string Right(this string input, int length)
-        {
-            if (string.IsNullOrEmpty(input) || input.Length <= length)
-            {
-                return input;
-            }
-            else
-            {
-                return input.Substring(input.Length - length);
-            }
-        }
-
-        /// <summary>
-        /// 在左邊取多少個字元
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="length"></param>
-        /// <returns></returns>
-        public static string Left(this string input, int length)
-        {
-            if (string.IsNullOrEmpty(input) || input.Length <= length)
-            {
-                return input;
-            }
-            else
-            {
-                return input.Substring(0, length);
-            }
-        }
-
         #endregion
 
-        #region Enum
+        #region To Enum
 
         /// <summary>
         /// 
@@ -870,178 +804,9 @@ namespace Tracy.Frameworks.Common.Extends
 
         #endregion
 
-        #region IPAddress
+        #region To Guid
         /// <summary>
-        /// 如果轉換失敗，返回 IPAddress.None
-        /// </summary>
-        /// <param name="ipstring"></param>
-        /// <returns></returns>
-        public static IPAddress ToIPAddress(this string ipstring)
-        {
-            IPAddress ip;
-            if (IPAddress.TryParse(ipstring, out ip))
-                return ip;
-            else
-                return IPAddress.None;
-        }
-        #endregion
-
-        #region DateTime
-        /// <summary>
-        /// 轉換為日期，如果轉換失敗，返回預設值
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public static DateTime? ToDateTimeOrNull(this string str, DateTime? defaultValue = null)
-        {
-            DateTime d;
-            if (DateTime.TryParse(str, out d))
-                return d;
-            else
-            {
-                if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy'/'MM'/'dd HH:mm:ss", "MM'/'dd'/'yyyy HH:mm:ss", "yyyy-M-d", "yyy-M-d hh:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
-                    return d;
-                else
-                    return defaultValue;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="dateFmt"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public static DateTime? ToDateTimeOrNull(this string str, string dateFmt, DateTime? defaultValue = null)
-        {
-            DateTime d;
-            //if (DateTime.TryParse(str, out d))
-            //    return d;
-            //else {
-            if (DateTime.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
-                return d;
-            else
-                return defaultValue;
-            //}        
-        }
-
-        private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
-
-        /// <summary>
-        /// 轉換日期，轉換失敗時，返回 defaultValue
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public static DateTime ToDateTime(this string str, DateTime defaultValue = default(DateTime))
-        {
-            DateTime d;
-            if (DateTime.TryParse(str, out d))
-                return d;
-            else
-            {
-                if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
-                    return d;
-                else
-                    if (default(DateTime) == defaultValue)
-                        return MinDate;
-                    else
-                        return defaultValue;
-            }
-        }
-
-        /// <summary>
-        /// 按給定日期格式進行日期轉換
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="dateFmt"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public static DateTime ToDateTime(this string str, string dateFmt, DateTime defaultValue)
-        {
-            DateTime d;
-            //if (DateTime.TryParse(str, out d))
-            //    return d;
-            //else {
-            if (DateTime.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
-                return d;
-            else
-                return defaultValue;
-            //}            
-        }
-
-        /// <summary>
-        /// 轉換為日期，轉換失敗時，返回null
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static DateTime? ToDateTimeOrNull(this string str)
-        {
-            return str.ToDateTimeOrNull(null);
-        }
-
-        /// <summary>
-        /// 轉換日期，轉換失敗時，返回當前時間
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static DateTime ToDateTime(this string str)
-        {
-            return str.ToDateTime(DateTime.Now);
-        }
-
-        /// <summary>
-        /// 是否為日期型字串
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static bool IsDateTime(this string str)
-        {
-            //return Regex.IsMatch(str, @"^(((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-)) (20|21|22|23|[0-1]?\d):[0-5]?\d:[0-5]?\d)$ ");
-            DateTime d;
-            if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
-                return true;
-            else
-                return false;
-        }
-        #endregion
-
-        #region ToTimeSpan
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
-        public static TimeSpan ToTimeSpan(this string str, TimeSpan defaultValue)
-        {
-            TimeSpan t;
-            if (TimeSpan.TryParse(str, out t))
-            {
-                return t;
-            }
-            else
-            {
-                return defaultValue;
-            }
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static TimeSpan ToTimeSpan(this string str)
-        {
-            return str.ToTimeSpan(new TimeSpan());
-        }
-        #endregion
-
-        #region Guid
-        /// <summary>
-        ///
+        /// 将字符串转换成GUID
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -1055,275 +820,44 @@ namespace Tracy.Frameworks.Common.Extends
         }
         #endregion
 
-        #region Url
-
-        /// <summary>
-        /// 從 URL 中取出鍵的值, 如果不存在,返回空
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="key"></param>
-        /// <param name="ignoreCase"></param>
-        /// <returns></returns>
-        public static string ParseString(this string s, string key, bool ignoreCase)
-        {
-            if (s == null)
-                return ""; //必須這樣,請不要修改
-
-            if (String.IsNullOrEmpty(key))
-                throw new ArgumentNullException("key");
-            Dictionary<string, string> kvs = s.ParseString(ignoreCase);
-            key = ignoreCase ? key.ToLower() : key;
-            if (kvs.ContainsKey(key))
-            {
-                return kvs[key];
-            }
-            return "";
-        }
-
-        /// <summary>
-        /// 從URL中取 Key / Value
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="ignoreCase"></param>
-        /// <returns></returns>
-        public static Dictionary<string, string> ParseString(this string s, bool ignoreCase)
-        {
-            //必須這樣,請不要修改
-            if (string.IsNullOrEmpty(s))
-            {
-                return new Dictionary<string, string>();
-            }
-
-            if (s.IndexOf('?') != -1)
-            {
-                s = s.Remove(0, s.IndexOf('?'));
-            }
-
-            Dictionary<string, string> kvs = new Dictionary<string, string>();
-            Regex reg = new Regex(@"[\?&]?(?<key>[^=]+)=(?<value>[^\&]*)", RegexOptions.Compiled | RegexOptions.Multiline);
-            MatchCollection ms = reg.Matches(s);
-            string key;
-            foreach (Match ma in ms)
-            {
-                key = ignoreCase ? ma.Groups["key"].Value.ToLower() : ma.Groups["key"].Value;
-                if (kvs.ContainsKey(key))
-                {
-                    kvs[key] += "," + ma.Groups["value"].Value;
-                }
-                else
-                {
-                    kvs[key] = ma.Groups["value"].Value;
-                }
-            }
-
-            return kvs;
-        }
-
-        /// <summary>
-        /// 設置 URL中的 key
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="encode"></param>
-        /// <returns></returns>
-        public static string SetUrlKeyValue(this string url, string key, string value, Encoding encode)
-        {
-            if (url == null)
-                url = "";
-            if (String.IsNullOrEmpty(key))
-                throw new ArgumentNullException("key");
-            if (value == null)
-                value = "";
-            if (null == encode)
-                throw new ArgumentNullException("encode");
-            //if (!string.IsNullOrEmpty(url.ParseString(key, true).Trim())) {
-            if (url.ParseString(true).ContainsKey(key.ToLower()))
-            {
-                Regex reg = new Regex(@"([\?\&])(" + key + @"=)([^\&]*)(\&?)", RegexOptions.IgnoreCase);
-                //　如果 value 前几个字符是数字，有BUG
-                //return reg.Replace(url, "$1$2" + HttpUtility.UrlEncode(value, encode) + "$4");
-
-                return reg.Replace(url, (ma) =>
-                {
-                    if (ma.Success)
-                    {
-                        //var a = string.Format("{0}{1}{2}{3}", ma.Groups[1].Value, ma.Groups[2].Value, HttpUtility.UrlEncode(value, encode), ma.Groups[4].Value);
-                        return string.Format("{0}{1}{2}{3}", ma.Groups[1].Value, ma.Groups[2].Value, HttpUtility.UrlEncode(value, encode), ma.Groups[4].Value);
-                    }
-                    return "";
-
-                });
-
-            }
-            else
-            {
-                return url + (url.IndexOf('?') > -1 ? "&" : "?") + key + "=" + HttpUtility.UrlEncode(value, encode);
-            }
-        }
-
-
-        /// <summary>
-        /// 修正URL
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string FixUrl(this string url)
-        {
-            return url.FixUrl("");
-        }
-
-        /// <summary>
-        /// 修正URL
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="defaultPrefix"></param>
-        /// <returns></returns>
-        public static string FixUrl(this string url, string defaultPrefix)
-        {
-            // 必須這樣,請不要修改
-            if (url == null)
-                url = "";
-
-            if (defaultPrefix == null)
-                defaultPrefix = "";
-            string tmp = url.Trim();
-            if (!Regex.Match(tmp, "^(http|https):").Success)
-            {
-                tmp = string.Format("{0}/{1}", defaultPrefix, tmp);
-            }
-            tmp = Regex.Replace(tmp, @"(?<!(http|https):)[\\/]+", "/").Trim();
-            return tmp;
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string ToAbsolute(string url)
-        {
-            return VirtualPathUtility.ToAbsolute(url);
-        }
-
         #endregion
 
-        #region mix
+        #region 常用判断
+
         /// <summary>
-        /// 獲取用於 Javascript 的安全字串
+        /// 判断字符串是否为null或空
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static bool IsNullOrEmpty(this string input)
+        {
+            return string.IsNullOrEmpty(input);
+        }
+
+        /// <summary>
+        /// 判断字符串是否为null，空或空白字符
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static bool IsNullOrWhiteSpace(this string input)
+        {
+            return string.IsNullOrWhiteSpace(input);
+        }
+
+        /// <summary>
+        /// 判断字符串是否日期时间格式
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static string JsSafeString(this string str)
+        public static bool IsDateTime(this string str)
         {
-            if (String.IsNullOrEmpty(str))
-                return "";//必須這樣,請不要修改
-
-            return str.ToString().Replace("'", "\\'").Replace("\"", "&quot;");
+            //return Regex.IsMatch(str, @"^(((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-)) (20|21|22|23|[0-1]?\d):[0-5]?\d:[0-5]?\d)$ ");
+            DateTime d;
+            if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
+                return true;
+            else
+                return false;
         }
-
-        /// <summary>
-        /// 獲取潔淨的線上CKEditor編輯器內容
-        /// </summary>
-        /// <param name="content">源內容</param>
-        /// <returns></returns>
-        public static string GetCleanEditorContent(this string content)
-        {
-            if (String.IsNullOrEmpty(content))
-                throw new ArgumentNullException("content");
-            content = Regex.Replace(content.Replace("\r\n", "").Replace('\t', ' '), ">(( )+|[\\s　?]+|\\s+)", ">", RegexOptions.Multiline);
-            content = Regex.Replace(content, "<div firebugversion=\"1.5.3\" id=\"_firebugConsole\" style=\"display: none;\">&nbsp;</div>$", "", RegexOptions.IgnoreCase);
-            content = Regex.Replace(content, "<p>&nbsp;</p>$", "", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            content = Regex.Replace(content, "<br />$", "", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            return content;
-        }
-
-        /// <summary>
-        /// 替換以 ../$ ../../$ 等
-        /// 以 ../VMaster/$ ../../VMaster/$ VMaster/$ 等
-        /// 開頭的 src, href
-        /// </summary>
-        /// <param name="ctx"></param>
-        /// <param name="realSite"></param>
-        /// <param name="placeHolder"></param>
-        /// <returns></returns>
-        public static string ReplaceResourceSite(this string ctx, string realSite, string placeHolder = @"\$")
-        {
-            if (ctx == null)
-            {
-                throw new ArgumentNullException("ctx");
-            }
-
-            //Regex rx = new Regex(@"(<(a|img|script|link)[^>]*(src|href)=(?<quot>[""']))(\.\./)*(VMaster/)*\$(?<sub>[^'""]*)\6", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            Regex rx = new Regex(@"(<(a|img|script|link)[^>]*(src|href)=(?<quot>[""']))(\.\./)*(VMaster/)*" + placeHolder + @"(?<sub>[^'""]*)\6", RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            var outputHtml = rx.Replace(ctx, (ma) =>
-            {
-                if (ma.Success)
-                {
-                    return ma.Groups[1] + ma.Groups["sub"].Value.FixUrl(realSite) + ma.Groups["quot"].Value;
-                }
-                return ma.Groups[0].Value;
-            });
-            return outputHtml;
-        }
-        #endregion
-
-        #region 如果空字串則轉為null
-        /// <summary>
-        /// treat empty string to null
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string EmptyThenNull(this string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return null;
-            }
-            return input;
-        }
-
-        /// <summary>
-        /// 沒值時返回null，有值時返回input.Trim()
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string ToNull(this string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return null;
-            }
-            return input.Trim();
-        }
-
-        /// <summary>
-        /// 沒值時返回string.Empty，有值時返回input.Trim()
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public static string ToEmpty(this string input)
-        {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return string.Empty;
-            }
-            return input.Trim();
-        }
-
-        /// <summary>
-        /// 比较字符串是否相等，而不考虑大小写
-        /// source.Equals(value, StringComparison.OrdinalIgnoreCase);
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static bool EqualsIgnoreCase(this string source, string value)
-        {
-            return source.Equals(value, StringComparison.OrdinalIgnoreCase);
-        }
-
-        #endregion
 
         #region In Between系列
 
@@ -1402,24 +936,14 @@ namespace Tracy.Frameworks.Common.Extends
 
         #endregion
 
-        #region 处理t-sql中插入的值，过滤特殊字符
-
-        /// <summary>
-        /// 处理t-sql中插入的值，防止意外字符导致错误
-        /// </summary>
-        /// <param name="str">需要插入的参数值</param>
-        /// <returns></returns>
-        public static string ToSecuritySQL(this string str)
-        {
-            return str.Replace("'", "''").Replace("[", "[[]").Replace("%", "[%]").Replace("_", "[_]").Replace("^", "[^]");
-        }
-
         #endregion
 
-        #region 序列化与反序列化
-        #region JSON序列化，反序列化 {1AC5559B-3615-4EA6-B15B-B6374B28D7A1}
+        #region 序列化
+
+        #region Json序列化
+
         /// <summary>
-        /// 对象序列化成json字符串
+        /// 将对象序列化成json字符串
         /// </summary>
         /// <param name="input"></param>
         /// <param name="isNeedFormat">默认false</param>
@@ -1466,7 +990,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        /// json字符串反序列化为对象
+        /// 从json字符串反序列化为对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
@@ -1501,7 +1025,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        /// json字符串反序列化为对象
+        /// 从json字符串反序列化为对象
         /// </summary>
         /// <param name="input"></param>
         /// <param name="type">要反序化的类型</param>
@@ -1537,10 +1061,10 @@ namespace Tracy.Frameworks.Common.Extends
 
         #endregion
 
-        #region Xml 序列化，反序列化
+        #region Xml序列化
 
         /// <summary>
-        /// xml序列化
+        /// 将对象序列化成json字符串
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
@@ -1583,7 +1107,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        /// 反序列化
+        /// 从xml字符串反序列化为对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="xml"></param>
@@ -1610,12 +1134,15 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         #endregion
+
         #endregion
 
-        #region 压缩与解压 {4800C066-A10B-40A7-B6BA-B9F91CCE8DE6}
+        #region 解压缩
+
+        #region GZip
 
         /// <summary>
-        /// 字符串压缩(GZip)
+        /// 将字符串压缩为byte数组(GZip)
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -1636,7 +1163,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        /// 字符串解压(GZip)
+        /// 从byte数组解压成字符串(GZip)
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -1662,8 +1189,12 @@ namespace Tracy.Frameworks.Common.Extends
             }
         }
 
+        #endregion
+
+        #region LZ4
+
         /// <summary>
-        /// 字符串压缩(LZ4)
+        /// 将字符串压缩为byte数组(LZ4)
         /// LZ4的压缩速度是GZip的7倍
         /// LZ4的解压速度是GZip的5倍
         /// LZ4的压缩率是GZip的2/3
@@ -1679,7 +1210,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        /// 字符串解压(LZ4)
+        /// 从byte数组解压成字符串(LZ4)
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -1689,8 +1220,12 @@ namespace Tracy.Frameworks.Common.Extends
             return Encoding.UTF8.GetString(result);
         }
 
+        #endregion
+
+        #region 二进制
+
         /// <summary>
-        /// 对象转换binary
+        /// 将对象转换成二进制(先序列化成json再压缩)
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -1705,7 +1240,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        /// binary转换对象
+        /// 从byte数组还原成对象
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -1721,64 +1256,7 @@ namespace Tracy.Frameworks.Common.Extends
 
         #endregion
 
-        #region 深拷贝和浅拷贝
-
-        /// <summary>
-        /// 深拷贝
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public static T DeepClone<T>(this T obj) where T : class
-        {
-            return obj != null ? obj.ToJson().FromJson<T>() : null;
-        }
-
-        //浅拷贝可以使用Object.MemberwiseClone()方法
-
         #endregion
-    }
 
-    /// <summary>
-    /// {4800C066-A10B-40A7-B6BA-B9F91CCE8DE6}
-    /// </summary>
-    public static class MySQLCompressHelper
-    {
-        public static byte[] MySQLCompress(this string str, Ionic.Zlib.CompressionLevel level = Ionic.Zlib.CompressionLevel.Default)
-        {
-            return UTF8Encoding.UTF8.GetBytes(str).MySQLCompress(level);
-        }
-
-        public static byte[] MySQLCompress(this byte[] buffer, Ionic.Zlib.CompressionLevel level = Ionic.Zlib.CompressionLevel.Default)
-        {
-            using (var output = new MemoryStream())
-            {
-                output.Write(BitConverter.GetBytes((int)buffer.Length), 0, 4);
-                using (var compressor = new Ionic.Zlib.ZlibStream(output, Ionic.Zlib.CompressionMode.Compress, level))
-                {
-                    compressor.Write(buffer, 0, buffer.Length);
-                }
-
-                return output.ToArray();
-            }
-        }
-
-        public static string MySQLUncompress(this byte[] buffer)
-        {
-            return UTF8Encoding.UTF8.GetString(buffer.MySQLUncompressBuffer());
-        }
-
-        public static byte[] MySQLUncompressBuffer(this byte[] buffer)
-        {
-            using (var output = new MemoryStream())
-            {
-                using (var decompressor = new Ionic.Zlib.ZlibStream(output, Ionic.Zlib.CompressionMode.Decompress))
-                {
-                    decompressor.Write(buffer, 4, buffer.Length - 4);
-                }
-
-                return output.ToArray();
-            }
-        }
     }
 }

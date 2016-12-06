@@ -6,53 +6,9 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using Tracy.Frameworks.Common.Extends;
 using System.Linq.Expressions;
-using Tracy.Frameworks.Common.Serialization;
 
 namespace Tracy.Frameworks.Common.Exceptions.ValidationException
 {
-    ///// <summary>
-    ///// 后台校验异常(非泛型)
-    ///// </summary>
-    //[Serializable]
-    //[DataContract]
-    //public class ValidationExceptionLite : System.ServiceModel.FaultException
-    //{
-    //    /// <summary>
-    //    /// 初始化后台校验异常(非泛型)的新實例
-    //    /// </summary>
-    //    /// <param name="exception"></param>
-    //    public ValidationExceptionLite(ValidationException exception)
-    //        : base(string.Format("{0}\r\n{1}\r\n{2}", exception.Message, StandardSerializer.GetString(exception.Detail), exception.ToString()),
-    //        new FaultCode("xxxSZ.Frameworks.Exceptions.ValidationException.ValidationExceptionLite"),
-    //        exception.Action) { this.Source = exception.Source; }
-
-    //    /// <summary>
-    //    /// 初始化后台校验异常(非泛型)的新實例
-    //    /// </summary>
-    //    /// <param name="details"></param>
-    //    /// <param name="message"></param>
-    //    /// <param name="reason"></param>
-    //    /// <param name="action"></param>
-    //    /// <param name="source"></param>
-    //    public ValidationExceptionLite(List<ValidationResult> details, string message, string reason, string action, string source = "")
-    //        : base(string.Format("{0}\r\n{1}\r\n{2}", message, StandardSerializer.GetString(details), reason),
-    //        new FaultCode("xxxSZ.Frameworks.Exceptions.ValidationException.ValidationExceptionLite"),
-    //        action) { if (!string.IsNullOrWhiteSpace(source)) this.Source = source; }
-
-    //    ///// <summary>
-    //    ///// 初始化后台校验异常(非泛型)的新實例
-    //    ///// </summary>
-    //    //public ValidationExceptionLite() : base() { }
-
-    //    ///// <summary>
-    //    ///// 初始化后台校验异常(非泛型)的新實例
-    //    ///// </summary>
-    //    ///// <param name="reason"></param>
-    //    ///// <param name="code"></param>
-    //    ///// <param name="action"></param>
-    //    //public ValidationExceptionLite(string reason, FaultCode code, string action) : base(reason, code, action) { }
-    //}
-
     /// <summary>
     /// 后台校验异常
     /// </summary>
@@ -156,7 +112,7 @@ namespace Tracy.Frameworks.Common.Exceptions.ValidationException
         /// 初始化后台校验异常的新实例
         /// </summary>
         /// <param name="detail">验证结果详情</param>
-        public ValidationException(List<ValidationResult> detail) : base(detail, StandardSerializer.GetString(detail), ValidationFaultCode) { }
+        //public ValidationException(List<ValidationResult> detail) : base(detail, StandardSerializer.GetString(detail), ValidationFaultCode) { }
 
         /// <summary>
         /// 初始化后台校验异常的新实例

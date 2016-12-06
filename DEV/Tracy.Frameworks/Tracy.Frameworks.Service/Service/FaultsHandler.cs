@@ -10,7 +10,7 @@ using System.Configuration;
 using Tracy.Frameworks.Common.Exceptions;
 using Tracy.Frameworks.Log;
 using Tracy.Frameworks.Common.Exceptions.ValidationException;
-using Tracy.Frameworks.Common.Serialization;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.Frameworks.Service
 {
@@ -114,7 +114,7 @@ namespace Tracy.Frameworks.Service
                               err.IsValid)).ToList();
                 ex = new ValidationException( //將ValidationException拋出，前端需要判斷ex.CreateMessageFault().HasDetail和通過ex.CreateMessageFault().GetDetail<List<ValidationResult>>()獲取Detail
                     detail,
-                    string.Format("{0}\r\n{1}\r\n{2}", dbEntityValidationException.Message, StandardSerializer.GetString(detail), dbEntityValidationException),
+                    string.Format("{0}\r\n{1}\r\n{2}", dbEntityValidationException.Message, detail.ToJson(), dbEntityValidationException),
                     action)
                 {
                     Source = (first != null ? first.Entry.Entity.GetType().FullName : string.Empty)

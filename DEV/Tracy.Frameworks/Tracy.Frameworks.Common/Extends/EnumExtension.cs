@@ -11,9 +11,7 @@ using System.IO;
 namespace Tracy.Frameworks.Common.Extends
 {
     /// <summary>
-    /// 描述:枚举扩展类
-    /// 作者:鲁宁
-    /// 时间:2014/5/21 17:24:45
+    /// enum枚举扩展
     /// </summary>
     public static class EnumExtension
     {

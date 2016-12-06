@@ -10,16 +10,11 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Threading;
 
-/*********************************************************
- * 开发人员：鲁宁
- * 创建时间：2014/7/16 10:02:51
- * 描述说明：EF的扩展
- * 
- * 更改历史：
- * 
- * *******************************************************/
 namespace Tracy.Frameworks.Common.Extends
 {
+    /// <summary>
+    /// EF扩展
+    /// </summary>
     public static class EFExtension
     {
         /// <summary>
