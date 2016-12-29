@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.MongoDb.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.Redis.Tests", "Tracy.Frameworks.Redis.Tests\Tracy.Frameworks.Redis.Tests.csproj", "{97F764BE-D7B4-4FF4-8468-D8479F54D076}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.LogClient", "Tracy.Frameworks.LogClient\Tracy.Frameworks.LogClient.csproj", "{4CB85C57-7E7B-47FC-844E-272172294060}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -234,6 +236,18 @@ Global
 		{97F764BE-D7B4-4FF4-8468-D8479F54D076}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{97F764BE-D7B4-4FF4-8468-D8479F54D076}.Release|Win32.ActiveCfg = Release|Any CPU
 		{97F764BE-D7B4-4FF4-8468-D8479F54D076}.Release|x86.ActiveCfg = Release|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|Win32.ActiveCfg = Release|Any CPU
+		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
