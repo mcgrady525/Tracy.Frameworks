@@ -92,6 +92,7 @@
     <Compile Include="Helpers\CodeTimerHelper.cs" />
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
+    <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\NPOIHelper.cs" />
     <Compile Include="Helpers\RegexHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
