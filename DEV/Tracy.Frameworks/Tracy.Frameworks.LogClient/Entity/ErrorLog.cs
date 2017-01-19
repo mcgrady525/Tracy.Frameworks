@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Tracy.Frameworks.Common.Helpers;
 using Tracy.Frameworks.LogClient.Helper;
 
 namespace Tracy.Frameworks.LogClient.Entity
@@ -17,6 +18,7 @@ namespace Tracy.Frameworks.LogClient.Entity
 
         public ErrorLog()
         {
+            Url = ConfigHelper.GetAppSetting("Log.Service.Url") + "/ErrorLog/AddLog";
             MachineName = System.Environment.MachineName;
             IPAddress = LogClientHelper.IP;
             ProcessID = process.Id;

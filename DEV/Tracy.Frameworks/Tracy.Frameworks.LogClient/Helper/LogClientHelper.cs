@@ -3,14 +3,76 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using Tracy.Frameworks.LogClient.Entity;
+using Tracy.Frameworks.Common.Helpers;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.Frameworks.LogClient.Helper
 {
     /// <summary>
     /// 日志客户端helper
     /// </summary>
-    public static class LogClientHelper
+    public sealed class LogClientHelper
     {
+        //单例模式
+        private static readonly LogClientHelper logClientHelper = new LogClientHelper();
+        private LogClientHelper() 
+        { }
+
+        public static LogClientHelper Instance 
+        {
+            get
+            {
+                return logClientHelper;
+            }
+        }
+
+        /// <summary>
+        /// 写debug日志
+        /// </summary>
+        /// <param name="debugLog"></param>
+        public static void Debug(DebugLog debugLog)
+        {
+            HttpHelper.SendRequestByHttpWebRequest(debugLog.Url, debugLog.ToJson());
+        }
+
+        /// <summary>
+        /// 写error日志
+        /// </summary>
+        /// <param name="errorLog"></param>
+        public static void Error(ErrorLog errorLog)
+        {
+            HttpHelper.SendRequestByHttpWebRequest(errorLog.Url, errorLog.ToJson());
+        }
+
+        /// <summary>
+        /// 写性能日志
+        /// </summary>
+        /// <param name="performanceLog"></param>
+        public static void Performance(PerformanceLog performanceLog)
+        {
+            HttpHelper.SendRequestByHttpWebRequest(performanceLog.Url, performanceLog.ToJson());
+        }
+
+        /// <summary>
+        /// 写xml日志
+        /// </summary>
+        /// <param name="xmlLog"></param>
+        public static void Xml(XmlLog xmlLog)
+        {
+            HttpHelper.SendRequestByHttpWebRequest(xmlLog.Url, xmlLog.ToJson());
+        }
+
+        /// <summary>
+        /// 写业务跟踪日志
+        /// </summary>
+        /// <param name="traceLog"></param>
+        public static void Trace(TraceLog traceLog)
+        {
+            HttpHelper.SendRequestByHttpWebRequest(traceLog.Url, traceLog.ToJson());
+        }
+
+        #region 其它
         /// <summary>
         /// ip
         /// </summary>
@@ -48,7 +110,8 @@ namespace Tracy.Frameworks.LogClient.Helper
                 }
                 return _IP;
             }
-        }
+        } 
+        #endregion
 
     }
 }

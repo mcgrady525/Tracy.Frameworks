@@ -12,6 +12,11 @@ namespace Tracy.Frameworks.LogClient.Entity
     public abstract class BaseLog
     {
         /// <summary>
+        /// url
+        /// </summary>
+        public string Url { get; set; }
+
+        /// <summary>
         /// 系统编码，各业务系统编码，如Ubtrip,Net等
         /// </summary>
         public string SystemCode { get; set; }
