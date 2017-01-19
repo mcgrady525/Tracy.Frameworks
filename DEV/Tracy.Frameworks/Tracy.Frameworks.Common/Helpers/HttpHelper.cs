@@ -14,17 +14,28 @@ namespace Tracy.Frameworks.Common.Helpers
     {
         /// <summary>
         /// 使用HttpWebRequest，适用于.net2.0~4.0
+        /// 默认使用POST方式发送数据
         /// </summary>
-        /// <param name="url"></param>
+        /// <param name="url">url</param>
+        /// <param name="jsonData">json格式的数据</param>
         /// <returns></returns>
-        public static string SendRequestByHttpWebRequest(string url)
+        public static string SendRequestByHttpWebRequest(string url, string jsonData)
         {
             var result = string.Empty;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            //设置request属性
             request.Method = "POST";
-            request.Credentials = CredentialCache.DefaultCredentials;
-            request.Headers.Add(HttpRequestHeader.AcceptLanguage, "zh-cn");
-            
+            request.ContentType = "application/json";
+
+            //写入data
+            using (var streamWriter = new StreamWriter(request.GetRequestStream(), Encoding.UTF8))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             using (StreamReader streamReader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
             {
