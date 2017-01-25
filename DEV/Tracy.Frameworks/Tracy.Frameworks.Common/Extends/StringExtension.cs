@@ -425,7 +425,17 @@ namespace Tracy.Frameworks.Common.Extends
         #region To Bool
 
         /// <summary>
-        ///
+        /// 只有'True'或'true'可以转换，'Y'或'1'不可以转换
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static bool ToBool(this string str)
+        {
+            return str.ToBool(false);
+        }
+
+        /// <summary>
+        /// 只有'True'或'true'可以转换，'Y'或'1'不可以转换
         /// </summary>
         /// <param name="str"></param>
         /// <param name="defaultValue"></param>
@@ -444,18 +454,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        ///
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static bool ToBool(this string str)
-        {
-            return str.ToBool(false);
-        }
-
-
-        /// <summary>
-        /// 
+        /// 只有'True'或'true'可以转换，'Y'或'1'不可以转换，转换不成功则返回null
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
@@ -468,6 +467,23 @@ namespace Tracy.Frameworks.Common.Extends
                 return null;
         }
 
+        /// <summary>
+        /// 'True','true','Y'和'1'都可以转换
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static bool ToBoolNew(this string s)
+        {
+            if (s == null)
+            {
+                return false;
+            }
+            s = s.Trim();
+
+            return string.Equals(s, "True", StringComparison.CurrentCultureIgnoreCase)
+                || string.Equals(s, "Y", StringComparison.CurrentCultureIgnoreCase)
+                || s == "1";
+        }
 
         #endregion
 

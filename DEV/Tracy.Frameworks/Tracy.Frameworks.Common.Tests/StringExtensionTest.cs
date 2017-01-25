@@ -67,6 +67,16 @@ namespace Tracy.Frameworks.Common.Tests
 
         }
 
+        [NUnit.Framework.Test]
+        public void StringExtension_ToBool_Test()
+        {
+            var result1 = "Y".ToBoolNew();
+            var result2 = "1".ToBoolNew();
+            var result3 = "true".ToBoolNew();
+            var result4 = "True".ToBoolNew();
+            var result5 = "0".ToBool();
+        }
+
         private User GetUser()
         {
             return new User
@@ -82,7 +92,6 @@ namespace Tracy.Frameworks.Common.Tests
                 }
             };
         }
-
     }
 
     public class User
