@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.Redis.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.LogClient", "Tracy.Frameworks.LogClient\Tracy.Frameworks.LogClient.csproj", "{4CB85C57-7E7B-47FC-844E-272172294060}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.LogClient.Tests", "Tracy.Frameworks.LogClient.Tests\Tracy.Frameworks.LogClient.Tests.csproj", "{549388E2-BFD4-442C-B894-3504071F3B77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -248,6 +250,18 @@ Global
 		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|Win32.ActiveCfg = Release|Any CPU
 		{4CB85C57-7E7B-47FC-844E-272172294060}.Release|x86.ActiveCfg = Release|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Release|Win32.ActiveCfg = Release|Any CPU
+		{549388E2-BFD4-442C-B894-3504071F3B77}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -257,6 +271,7 @@ Global
 		{38F58280-0608-4769-9C99-E4A1DE1AB629} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
 		{DD92C49A-5BDC-4937-A253-C4F08FD04FBF} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
 		{97F764BE-D7B4-4FF4-8468-D8479F54D076} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
+		{549388E2-BFD4-442C-B894-3504071F3B77} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = LNFramework.vsmdi
