@@ -18,7 +18,7 @@ namespace Tracy.Frameworks.LogClient.Entity
 
         public ErrorLog()
         {
-            Url = ConfigHelper.GetAppSetting("Log.Service.Url") + "/ErrorLog/AddLog";
+            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url") + "/api/errorlog/add";
             MachineName = System.Environment.MachineName;
             IPAddress = LogClientHelper.IP;
             ProcessID = process.Id;

@@ -18,7 +18,7 @@ namespace Tracy.Frameworks.LogClient.Entity
 
         public PerformanceLog()
         {
-            Url = ConfigHelper.GetAppSetting("Log.Service.Url") + "/PerformanceLog/AddLog";
+            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url") + "/api/performancelog/add";
             MachineName = System.Environment.MachineName;
             IPAddress = LogClientHelper.IP;
             ProcessID = process.Id;
