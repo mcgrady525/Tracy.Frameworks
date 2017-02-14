@@ -78,6 +78,8 @@
   <ItemGroup>
     <Compile Include="Consts\DateTimeTypeConst.cs" />
     <Compile Include="Consts\LogTypeConst.cs" />
+    <Compile Include="Consts\RabbitMQExchangeConst.cs" />
+    <Compile Include="Consts\RabbitMQQueueConst.cs" />
     <Compile Include="Exceptions\NoAuthorizationException.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationEntityState.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationEntry.cs" />
