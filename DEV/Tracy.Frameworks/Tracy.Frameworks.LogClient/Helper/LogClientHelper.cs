@@ -48,16 +48,6 @@ namespace Tracy.Frameworks.LogClient.Helper
         }
 
         /// <summary>
-        /// 写性能日志
-        /// </summary>
-        /// <param name="performanceLog"></param>
-        public static void Performance(PerformanceLog performanceLog)
-        {
-            var data = performanceLog.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(performanceLog.Url, data);
-        }
-
-        /// <summary>
         /// 写xml日志
         /// </summary>
         /// <param name="xmlLog"></param>
@@ -65,6 +55,16 @@ namespace Tracy.Frameworks.LogClient.Helper
         {
             var data = xmlLog.ToJson();
             HttpHelper.SendRequestByHttpWebRequest(xmlLog.Url, data);
+        }
+
+        /// <summary>
+        /// 写性能日志
+        /// </summary>
+        /// <param name="performanceLog"></param>
+        public static void Performance(PerformanceLog performanceLog)
+        {
+            var data = performanceLog.ToJson();
+            HttpHelper.SendRequestByHttpWebRequest(performanceLog.Url, data);
         }
 
         /// <summary>
