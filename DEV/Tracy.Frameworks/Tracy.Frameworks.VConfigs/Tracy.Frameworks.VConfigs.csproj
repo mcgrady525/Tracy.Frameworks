@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +53,7 @@
   <ItemGroup>
     <None Include="Debug\appSettings.config" />
     <None Include="Debug\connectionStrings.config" />
+    <None Include="Debug\NLog.config" />
     <None Include="Debug\Redis.config" />
     <None Include="Debug\WCF.behaviors.config" />
     <None Include="Debug\WCF.bindings.config" />
@@ -63,6 +64,7 @@
     </None>
     <None Include="Dev\appSettings.config" />
     <None Include="Dev\connectionStrings.config" />
+    <None Include="Dev\NLog.config" />
     <None Include="Dev\Redis.config" />
     <None Include="Dev\WCF.behaviors.config">
       <SubType>Designer</SubType>

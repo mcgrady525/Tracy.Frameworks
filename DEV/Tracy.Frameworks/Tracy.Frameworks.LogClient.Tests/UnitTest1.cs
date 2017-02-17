@@ -20,15 +20,40 @@ namespace Tracy.Frameworks.LogClient.Tests
             //    Detail = "Detail1"
             //};
             //var result = debugLog.ToJson();
-            var list = new List<DebugLog>();
+            //var list = new List<DebugLog>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    list.Add(new DebugLog 
+            //    {
+            //       SystemCode= "Log", 
+            //       Source= "Log.Service",
+            //       Message = "Message"+ i,
+            //       Detail = "Detail"+ i
+            //    });
+            //}
+            //var list = new List<ErrorLog>();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    list.Add(new ErrorLog 
+            //    {
+            //        SystemCode= "Log",
+            //        Source= "Log.Task",
+            //        Message = "Message" + i,
+            //        Detail = "Detail"+i
+            //    });
+            //}
+            var list = new List<XmlLog>();
             for (int i = 0; i < 10; i++)
             {
-                list.Add(new DebugLog 
+                list.Add(new XmlLog
                 {
-                   SystemCode= "Log", 
-                   Source= "Log.Service",
-                   Message = "Message"+ i,
-                   Detail = "Detail"+ i
+                    SystemCode = "Log",
+                    Source = "Log.Task",
+                    ClassName = "ClassName" + i,
+                    MethodName = "MethodName" + i,
+                    RQ = "rq" + i,
+                    RS = "rs" + i,
+                    Remark = "Remark" + i
                 });
             }
             var result = list.ToJson();
