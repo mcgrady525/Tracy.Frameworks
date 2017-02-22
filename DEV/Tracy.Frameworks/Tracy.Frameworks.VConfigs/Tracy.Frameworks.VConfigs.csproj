@@ -54,6 +54,7 @@
     <None Include="Debug\appSettings.config" />
     <None Include="Debug\connectionStrings.config" />
     <None Include="Debug\NLog.config" />
+    <None Include="Debug\Paths.config" />
     <None Include="Debug\Redis.config" />
     <None Include="Debug\WCF.behaviors.config" />
     <None Include="Debug\WCF.bindings.config" />
@@ -65,6 +66,7 @@
     <None Include="Dev\appSettings.config" />
     <None Include="Dev\connectionStrings.config" />
     <None Include="Dev\NLog.config" />
+    <None Include="Dev\Paths.config" />
     <None Include="Dev\Redis.config" />
     <None Include="Dev\WCF.behaviors.config">
       <SubType>Designer</SubType>
