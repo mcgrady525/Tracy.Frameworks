@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using Tracy.Frameworks.Common.Helpers;
 using Tracy.Frameworks.LogClient.Helper;
+using Newtonsoft.Json;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.Frameworks.LogClient.Entity
 {
@@ -47,12 +49,34 @@ namespace Tracy.Frameworks.LogClient.Entity
         /// <summary>
         /// 请求xml
         /// </summary>
+        [JsonIgnore]
         public string RQ { get; set; }
+
+        [JsonProperty("RQ")]
+        public byte[] RQBinary
+        {
+            get
+            { 
+                //将RQ压缩为二进制格式
+                return this.RQ.LZ4Compress();
+            }
+        }
 
         /// <summary>
         /// 返回xml
         /// </summary>
+        [JsonIgnore]
         public string RS { get; set; }
+
+        [JsonProperty("RS")]
+        public byte[] RSBinary
+        {
+            get
+            { 
+                //将RS压缩为二进制格式
+                return this.RS.LZ4Compress();
+            }
+        }
 
         /// <summary>
         /// 备注

@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using Tracy.Frameworks.LogClient.Helper;
 using Tracy.Frameworks.Common.Helpers;
+using Newtonsoft.Json;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.Frameworks.LogClient.Entity
 {
@@ -35,9 +37,20 @@ namespace Tracy.Frameworks.LogClient.Entity
         public string Message { get; set; }
 
         /// <summary>
-        /// 详情
+        /// 详情，一般传ex.ToString()
         /// </summary>
+        [JsonIgnore]
         public string Detail { get; set; }
+
+        [JsonProperty("Detail")]
+        public byte[] DetailBinary
+        {
+            get
+            { 
+                //将Detail压缩为二进制
+                return this.Detail.LZ4Compress();
+            }
+        }
 
         /// <summary>
         /// 应用程序域名称
