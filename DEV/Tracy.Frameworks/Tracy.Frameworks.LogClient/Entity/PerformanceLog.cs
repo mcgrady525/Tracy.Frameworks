@@ -39,7 +39,7 @@ namespace Tracy.Frameworks.LogClient.Entity
         public string MethodName { get; set; }
 
         /// <summary>
-        /// 耗时
+        /// 耗时，单位：ms
         /// </summary>
         public long Duration { get; set; }
 
