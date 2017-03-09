@@ -33,7 +33,9 @@ namespace Tracy.Frameworks.LogClient.Helper
         /// <param name="debugLog"></param>
         public static void Debug(DebugLog debugLog)
         {
-            var data = debugLog.ToJson();
+            var list = new List<DebugLog> { };
+            list.Add(debugLog);
+            var data = list.ToJson();
             HttpHelper.SendRequestByHttpWebRequest(debugLog.Url, data);
         }
 
@@ -43,7 +45,9 @@ namespace Tracy.Frameworks.LogClient.Helper
         /// <param name="errorLog"></param>
         public static void Error(ErrorLog errorLog)
         {
-            var data = errorLog.ToJson();
+            var list = new List<ErrorLog>();
+            list.Add(errorLog);
+            var data = list.ToJson();
             HttpHelper.SendRequestByHttpWebRequest(errorLog.Url, data);
         }
 
@@ -53,7 +57,9 @@ namespace Tracy.Frameworks.LogClient.Helper
         /// <param name="xmlLog"></param>
         public static void Xml(XmlLog xmlLog)
         {
-            var data = xmlLog.ToJson();
+            var list = new List<XmlLog>();
+            list.Add(xmlLog);
+            var data = list.ToJson();
             HttpHelper.SendRequestByHttpWebRequest(xmlLog.Url, data);
         }
 
@@ -63,7 +69,9 @@ namespace Tracy.Frameworks.LogClient.Helper
         /// <param name="performanceLog"></param>
         public static void Performance(PerformanceLog performanceLog)
         {
-            var data = performanceLog.ToJson();
+            var list = new List<PerformanceLog>();
+            list.Add(performanceLog);
+            var data = list.ToJson();
             HttpHelper.SendRequestByHttpWebRequest(performanceLog.Url, data);
         }
 
@@ -73,7 +81,9 @@ namespace Tracy.Frameworks.LogClient.Helper
         /// <param name="traceLog"></param>
         public static void Trace(TraceLog traceLog)
         {
-            var data = traceLog.ToJson();
+            var list = new List<TraceLog>();
+            list.Add(traceLog);
+            var data = list.ToJson();
             HttpHelper.SendRequestByHttpWebRequest(traceLog.Url, data);
         }
 
