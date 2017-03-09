@@ -20,7 +20,7 @@ namespace Tracy.Frameworks.LogClient.Entity
 
         public XmlLog()
         {
-            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url") + "/api/xmllog/add";
+            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url") + "api/xmllog/add";
             MachineName = System.Environment.MachineName;
             IPAddress = LogClientHelper.IP;
             ProcessID = process.Id;

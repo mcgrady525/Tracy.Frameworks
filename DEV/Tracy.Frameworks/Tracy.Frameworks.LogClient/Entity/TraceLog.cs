@@ -18,7 +18,7 @@ namespace Tracy.Frameworks.LogClient.Entity
 
         public TraceLog()
         {
-            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url") + "/api/tracelog/add";
+            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url") + "api/tracelog/add";
             MachineName = System.Environment.MachineName;
             IPAddress = LogClientHelper.IP;
             ProcessID = process.Id;
