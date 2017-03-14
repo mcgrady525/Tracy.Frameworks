@@ -34,7 +34,17 @@ namespace Tracy.Frameworks.LogClient.Entity
         /// <summary>
         /// 标题
         /// </summary>
+        [JsonIgnore]
         public string Message { get; set; }
+
+        [JsonProperty("Message")]
+        public byte[] MessageDetail
+        {
+            get
+            {
+                return this.Message.LZ4Compress();
+            }
+        }
 
         /// <summary>
         /// 详情，一般传ex.ToString()
