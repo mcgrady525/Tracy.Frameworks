@@ -102,5 +102,22 @@ namespace Tracy.Frameworks.Configurations
                 this["password"] = value;
             }
         }
+
+        /// <summary>
+        /// VHost，默认'/'
+        /// </summary>
+        [ConfigurationProperty("vhost", DefaultValue= "/")]
+        public string VHost
+        {
+            get
+            {
+                return this["vhost"].ToString();
+            }
+            set
+            {
+                this["vhost"] = value;
+            }
+        }
+
     }
 }
