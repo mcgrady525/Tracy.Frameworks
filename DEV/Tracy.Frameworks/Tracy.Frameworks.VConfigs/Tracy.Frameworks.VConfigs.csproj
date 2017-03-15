@@ -77,7 +77,9 @@
     <None Include="Dev\WCF.services.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Prod\" />
     <Folder Include="Test\" />
+    <Folder Include="UAT\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Readme.txt" />
