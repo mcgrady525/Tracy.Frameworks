@@ -51,26 +51,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Debug\appSettings.config" />
-    <None Include="Debug\connectionStrings.config" />
-    <None Include="Debug\NLog.config" />
-    <None Include="Debug\Paths.config" />
-    <None Include="Dev\appSettings.config" />
-    <None Include="Dev\connectionStrings.config" />
-    <None Include="Dev\NLog.config" />
-    <None Include="Dev\Paths.config" />
-    <None Include="Prod\appSettings.config" />
-    <None Include="Prod\connectionStrings.config" />
-    <None Include="Prod\NLog.config" />
-    <None Include="Prod\Paths.config" />
-    <None Include="Test\appSettings.config" />
-    <None Include="Test\connectionStrings.config" />
-    <None Include="Test\NLog.config" />
-    <None Include="Test\Paths.config" />
-    <None Include="UAT\appSettings.config" />
-    <None Include="UAT\connectionStrings.config" />
-    <None Include="UAT\NLog.config" />
-    <None Include="UAT\Paths.config" />
+    <None Include="01.Debug\appSettings.config" />
+    <None Include="01.Debug\connectionStrings.config" />
+    <None Include="01.Debug\NLog.config" />
+    <None Include="01.Debug\Paths.config" />
+    <None Include="02.Dev\appSettings.config" />
+    <None Include="02.Dev\connectionStrings.config" />
+    <None Include="02.Dev\NLog.config" />
+    <None Include="02.Dev\Paths.config" />
+    <None Include="05.Prod\appSettings.config" />
+    <None Include="05.Prod\connectionStrings.config" />
+    <None Include="05.Prod\NLog.config" />
+    <None Include="05.Prod\Paths.config" />
+    <None Include="03.Test\appSettings.config" />
+    <None Include="03.Test\connectionStrings.config" />
+    <None Include="03.Test\NLog.config" />
+    <None Include="03.Test\Paths.config" />
+    <None Include="04.UAT\appSettings.config" />
+    <None Include="04.UAT\connectionStrings.config" />
+    <None Include="04.UAT\NLog.config" />
+    <None Include="04.UAT\Paths.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
