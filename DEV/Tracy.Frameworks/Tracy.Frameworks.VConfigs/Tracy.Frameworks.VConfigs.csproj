@@ -55,32 +55,24 @@
     <None Include="Debug\connectionStrings.config" />
     <None Include="Debug\NLog.config" />
     <None Include="Debug\Paths.config" />
-    <None Include="Debug\Redis.config" />
-    <None Include="Debug\WCF.behaviors.config" />
-    <None Include="Debug\WCF.bindings.config" />
-    <None Include="Debug\WCF.client.config" />
-    <None Include="Debug\WCF.extensions.config" />
-    <None Include="Debug\WCF.services.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Dev\appSettings.config" />
     <None Include="Dev\connectionStrings.config" />
     <None Include="Dev\NLog.config" />
     <None Include="Dev\Paths.config" />
-    <None Include="Dev\Redis.config" />
-    <None Include="Dev\WCF.behaviors.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Dev\WCF.bindings.config" />
-    <None Include="Dev\WCF.client.config" />
-    <None Include="Dev\WCF.extensions.config" />
-    <None Include="Dev\WCF.services.config" />
+    <None Include="Prod\appSettings.config" />
+    <None Include="Prod\connectionStrings.config" />
+    <None Include="Prod\NLog.config" />
+    <None Include="Prod\Paths.config" />
+    <None Include="Test\appSettings.config" />
+    <None Include="Test\connectionStrings.config" />
+    <None Include="Test\NLog.config" />
+    <None Include="Test\Paths.config" />
+    <None Include="UAT\appSettings.config" />
+    <None Include="UAT\connectionStrings.config" />
+    <None Include="UAT\NLog.config" />
+    <None Include="UAT\Paths.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Prod\" />
-    <Folder Include="Test\" />
-    <Folder Include="UAT\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Readme.txt" />
   </ItemGroup>
