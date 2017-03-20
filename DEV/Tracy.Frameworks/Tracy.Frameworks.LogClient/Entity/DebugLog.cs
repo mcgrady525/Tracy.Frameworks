@@ -20,7 +20,7 @@ namespace Tracy.Frameworks.LogClient.Entity
 
         public DebugLog()
         {
-            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url") + "api/debuglog/add";
+            Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url").TrimEnd('/') + "/api/debuglog/add";
             MachineName = System.Environment.MachineName;
             IPAddress = LogClientHelper.IP;
             ProcessID = process.Id;
