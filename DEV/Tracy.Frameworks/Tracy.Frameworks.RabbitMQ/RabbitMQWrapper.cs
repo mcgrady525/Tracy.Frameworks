@@ -337,7 +337,7 @@ namespace Tracy.Frameworks.RabbitMQ
             {
                 return;
             }
-            
+
             var msg = result.Body.DeserializeUtf8().FromJson<T>();
 
             handler(msg);
