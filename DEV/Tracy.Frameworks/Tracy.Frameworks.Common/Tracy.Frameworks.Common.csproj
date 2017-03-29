@@ -86,6 +86,7 @@
     <Compile Include="Exceptions\ValidationException\ValidationError.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationException.cs" />
     <Compile Include="Exceptions\ValidationException\ValidationResult.cs" />
+    <Compile Include="Extends\AttributeExtension.cs" />
     <Compile Include="Extends\DateTimeExtension.cs" />
     <Compile Include="Extends\EFExtension.cs" />
     <Compile Include="Extends\IntExtension.cs" />

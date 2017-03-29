@@ -955,9 +955,7 @@ namespace Tracy.Frameworks.Common.Extends
         #endregion
 
         #region 序列化
-
         #region Json序列化
-
         /// <summary>
         /// 将对象序列化成json字符串
         /// </summary>
@@ -1151,6 +1149,14 @@ namespace Tracy.Frameworks.Common.Extends
 
         #endregion
 
+        public static byte[] SerializeUtf8(this string input)
+        {
+            return (input == null) ? null : Encoding.UTF8.GetBytes(input);
+        }
+        public static string DeserializeUtf8(this byte[] stream)
+        {
+            return (stream == null) ? null : Encoding.UTF8.GetString(stream);
+        }
         #endregion
 
         #region 解压缩
