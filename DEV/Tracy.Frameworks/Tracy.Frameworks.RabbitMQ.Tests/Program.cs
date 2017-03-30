@@ -15,13 +15,14 @@ namespace Tracy.Frameworks.RabbitMQ.Tests
                 HeartBeat = 60,
                 NetworkRecoveryInterval = new TimeSpan(60),
                 Host = "localhost",
+                VirtualHost= "/",
                 UserName = "admin",
                 Password = "P@ssw0rd.123"
             });
 
             var input = Input();
 
-            while (input != "exit")
+            while (input != "q")
             {
                 var log = new MessageModel
                 {
