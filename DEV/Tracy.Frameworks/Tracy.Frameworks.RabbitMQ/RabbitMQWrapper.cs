@@ -15,41 +15,33 @@ namespace Tracy.Frameworks.RabbitMQ
     /// <summary>
     /// RabbitMQ.Client原生封装类
     /// </summary>
-    public sealed class RabbitMQWrapper : IDisposable
+    public class RabbitMQWrapper : IDisposable
     {
         #region 初始化
         //RabbitMQ建议客户端线程之间不要共用Model，至少要保证共用Model的线程发送消息必须是串行的，但是建议尽量共用Connection。
-        private ConcurrentDictionary<string, IModel> ModelDic = new ConcurrentDictionary<string, IModel>();
-
-        private static readonly RabbitMQWrapper instance = new RabbitMQWrapper();
-
-        private IConnection _conn;
-
+        private static IConnection conn;
+        private static ConcurrentDictionary<string, IModel> modelDic = new ConcurrentDictionary<string, IModel>();
         private static readonly object lockObj = new object();
 
-        private RabbitMQWrapper() { }
+        public RabbitMQWrapper() { }
 
-        /// <summary>
-        /// 单例入口
-        /// </summary>
-        /// <returns></returns>
-        public static RabbitMQWrapper GetInstance()
+        public RabbitMQWrapper(RabbitMQConfig config)
         {
-            return instance;
+            CreateConnection(config);
         }
 
         /// <summary>
         /// 初始化，打开rabbitMQ服务器连接
         /// </summary>
         /// <param name="config"></param>
-        public void CreateConnection(RabbitMQConfig config)
+        private void CreateConnection(RabbitMQConfig config)
         {
             //双检锁保证只创建一个connection
-            if (_conn == null)
+            if (conn == null)
             {
                 lock (lockObj)
                 {
-                    if (_conn == null)
+                    if (conn == null)
                     {
                         var factory = new ConnectionFactory
                         {
@@ -65,16 +57,13 @@ namespace Tracy.Frameworks.RabbitMQ
                             //设置自动重连
                             AutomaticRecoveryEnabled = config.AutomaticRecoveryEnabled,
 
-                            //重连时间
-                            NetworkRecoveryInterval = config.NetworkRecoveryInterval,
-
                             //用户名
                             UserName = config.UserName,
 
                             //密码
                             Password = config.Password
                         };
-                        _conn = factory.CreateConnection();
+                        conn = factory.CreateConnection();
                     }
                 }
             }
@@ -162,13 +151,13 @@ namespace Tracy.Frameworks.RabbitMQ
         /// <returns></returns>
         private IModel GetModel(string exchange, string queue, string routingKey, bool isProperties = false)
         {
-            return ModelDic.GetOrAdd(queue, key =>
+            return modelDic.GetOrAdd(queue, key =>
             {
-                var model = _conn.CreateModel();
+                var model = conn.CreateModel();
                 ExchangeDeclare(model, exchange, ExchangeType.Direct, isProperties);
                 QueueDeclare(model, queue, isProperties);
                 model.QueueBind(queue, exchange, routingKey);
-                ModelDic[queue] = model;
+                modelDic[queue] = model;
                 return model;
             });
         }
@@ -181,15 +170,15 @@ namespace Tracy.Frameworks.RabbitMQ
         /// <returns></returns>
         private IModel GetModel(string queue, bool isProperties = false)
         {
-            return ModelDic.GetOrAdd(queue, value =>
+            return modelDic.GetOrAdd(queue, value =>
             {
-                var model = _conn.CreateModel();
+                var model = conn.CreateModel();
                 QueueDeclare(model, queue, isProperties);
 
                 //公平调度
                 model.BasicQos(0, 1, false);
 
-                ModelDic[queue] = model;
+                modelDic[queue] = model;
 
                 return model;
             });
@@ -202,8 +191,9 @@ namespace Tracy.Frameworks.RabbitMQ
         /// 发布消息
         /// </summary>
         /// <param name="command">指令</param>
+        /// <param name="channel">channel不为空时，供站点调用，站点自己负责释放channel资源</param>
         /// <returns></returns>
-        public void Publish<T>(T command) where T : class
+        public void Publish<T>(T command, IModel channel = null) where T : class
         {
             var queueInfo = GetRabbitMqAttribute<T>();
             if (queueInfo.IsNull())
@@ -217,7 +207,7 @@ namespace Tracy.Frameworks.RabbitMQ
             var routingKey = queueInfo.QueueName;
             var isProperties = queueInfo.IsProperties;
 
-            Publish(exchange, queue, routingKey, body, isProperties);
+            Publish(exchange, queue, routingKey, body, isProperties, channel);
         }
 
         /// <summary>
@@ -228,10 +218,20 @@ namespace Tracy.Frameworks.RabbitMQ
         /// <param name="exchange">交换机名称</param>
         /// <param name="queue">队列名</param>
         /// <param name="isProperties">是否持久化</param>
+        /// <param name="channel">channel不为空时，供站点调用，站点自己负责释放channel资源</param>
         /// <returns></returns>
-        public void Publish(string exchange, string queue, string routingKey, string body, bool isProperties = false)
+        public void Publish(string exchange, string queue, string routingKey, string body, bool isProperties = false, IModel channel = null)
         {
-            var channel = GetModel(exchange, queue, routingKey, isProperties);
+            if (channel == null)
+            {
+                channel = GetModel(exchange, queue, routingKey, isProperties);
+            }
+            else
+            {
+                ExchangeDeclare(channel, exchange, ExchangeType.Direct, isProperties);
+                QueueDeclare(channel, queue, isProperties);
+                channel.QueueBind(queue, exchange, routingKey);
+            }
 
             //如果需要持久化，消息也需要设置为持久化
             //只有交换机，队列和消息都设置为持久化时，消息才能真正的持久化，重启服务器后消息不会丢失
@@ -243,6 +243,7 @@ namespace Tracy.Frameworks.RabbitMQ
             channel.BasicPublish(exchange, routingKey, props, body.SerializeUtf8());
 
         }
+
         #endregion
 
         #region 订阅消息
@@ -344,12 +345,14 @@ namespace Tracy.Frameworks.RabbitMQ
         /// </summary>
         public void Dispose()
         {
-            foreach (var item in ModelDic)
+            foreach (var item in modelDic)
             {
                 item.Value.Dispose();
             }
-            _conn.Dispose();
-            _conn = null;
+
+            //不用关闭connection，不用管它
+            //conn.Dispose();
+            //conn = null;
         }
         #endregion
     }

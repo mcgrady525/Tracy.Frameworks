@@ -28,11 +28,6 @@ namespace Tracy.Frameworks.RabbitMQ
         public bool AutomaticRecoveryEnabled { get; set; }
 
         /// <summary>
-        /// 重连时间
-        /// </summary>
-        public TimeSpan NetworkRecoveryInterval { get; set; }
-
-        /// <summary>
         /// 用户名
         /// </summary>
         public string UserName { get; set; }

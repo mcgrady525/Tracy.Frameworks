@@ -9,16 +9,14 @@ namespace Tracy.Frameworks.RabbitMQ.Tests
     {
         static void Main(string[] args)
         {
-            var rabbitMqProxy = RabbitMQWrapper.GetInstance();
-            rabbitMqProxy.CreateConnection(new RabbitMQConfig 
+            var rabbitMQProxy = new RabbitMQWrapper(new RabbitMQConfig 
             {
-                AutomaticRecoveryEnabled = true,
-                HeartBeat = 60,
-                NetworkRecoveryInterval = new TimeSpan(60),
-                Host = "localhost",
-                VirtualHost = "/",
-                UserName = "admin",
-                Password = "P@ssw0rd.123"
+                Host= "localhost",
+                VirtualHost= "/",
+                HeartBeat= 60,
+                AutomaticRecoveryEnabled= true,
+                UserName= "admin",
+                Password= "P@ssw0rd.123"
             });
 
             var input = Input();
@@ -30,12 +28,12 @@ namespace Tracy.Frameworks.RabbitMQ.Tests
                     CreateDateTime = DateTime.Now,
                     Msg = input
                 };
-                rabbitMqProxy.Publish(log);
+                rabbitMQProxy.Publish(log);
 
                 input = Input();
             }
 
-            rabbitMqProxy.Dispose();
+            rabbitMQProxy.Dispose();
         }
 
         private static string Input()
