@@ -10,7 +10,7 @@ namespace Tracy.Frameworks.RabbitMQ.Tests
         static void Main(string[] args)
         {
             var rabbitMqProxy = RabbitMQWrapper.GetInstance();
-            rabbitMqProxy.Init(new RabbitMQConfig 
+            rabbitMqProxy.CreateConnection(new RabbitMQConfig 
             {
                 AutomaticRecoveryEnabled = true,
                 HeartBeat = 60,

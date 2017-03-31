@@ -19,11 +19,13 @@ namespace Tracy.Frameworks.RabbitMQ
     {
         #region 初始化
         //RabbitMQ建议客户端线程之间不要共用Model，至少要保证共用Model的线程发送消息必须是串行的，但是建议尽量共用Connection。
-        private static ConcurrentDictionary<string, IModel> ModelDic = new ConcurrentDictionary<string, IModel>();
+        private ConcurrentDictionary<string, IModel> ModelDic = new ConcurrentDictionary<string, IModel>();
 
         private static readonly RabbitMQWrapper instance = new RabbitMQWrapper();
 
         private IConnection _conn;
+
+        private static readonly object lockObj = new object();
 
         private RabbitMQWrapper() { }
 
@@ -40,37 +42,42 @@ namespace Tracy.Frameworks.RabbitMQ
         /// 初始化，打开rabbitMQ服务器连接
         /// </summary>
         /// <param name="config"></param>
-        public void Init(RabbitMQConfig config)
+        public void CreateConnection(RabbitMQConfig config)
         {
-            if (_conn != null)
+            //双检锁保证只创建一个connection
+            if (_conn == null)
             {
-                return;
+                lock (lockObj)
+                {
+                    if (_conn == null)
+                    {
+                        var factory = new ConnectionFactory
+                        {
+                            //设置主机名
+                            HostName = config.Host,
+
+                            //设置VirtualHost
+                            VirtualHost = config.VirtualHost.IsNullOrEmpty() ? "/" : config.VirtualHost,
+
+                            //设置心跳时间
+                            RequestedHeartbeat = config.HeartBeat,
+
+                            //设置自动重连
+                            AutomaticRecoveryEnabled = config.AutomaticRecoveryEnabled,
+
+                            //重连时间
+                            NetworkRecoveryInterval = config.NetworkRecoveryInterval,
+
+                            //用户名
+                            UserName = config.UserName,
+
+                            //密码
+                            Password = config.Password
+                        };
+                        _conn = factory.CreateConnection();
+                    }
+                }
             }
-
-            var factory = new ConnectionFactory
-            {
-                //设置主机名
-                HostName = config.Host,
-
-                //设置VirtualHost
-                VirtualHost = config.VirtualHost.IsNullOrEmpty() ? "/" : config.VirtualHost,
-
-                //设置心跳时间
-                RequestedHeartbeat = config.HeartBeat,
-
-                //设置自动重连
-                AutomaticRecoveryEnabled = config.AutomaticRecoveryEnabled,
-
-                //重连时间
-                NetworkRecoveryInterval = config.NetworkRecoveryInterval,
-
-                //用户名
-                UserName = config.UserName,
-
-                //密码
-                Password = config.Password
-            };
-            _conn = factory.CreateConnection();
         }
 
         /// <summary>
