@@ -15,77 +15,81 @@ namespace Tracy.Frameworks.RabbitMQ
     /// <summary>
     /// RabbitMQ.Client原生封装类
     /// </summary>
-    public class RabbitMQWrapper : IDisposable
+    public sealed class RabbitMQWrapper : IDisposable
     {
         #region 初始化
         //RabbitMQ建议客户端线程之间不要共用Model，至少要保证共用Model的线程发送消息必须是串行的，但是建议尽量共用Connection。
-        private static readonly ConcurrentDictionary<string, IModel> ModelDic =
-            new ConcurrentDictionary<string, IModel>();
+        private static ConcurrentDictionary<string, IModel> ModelDic = new ConcurrentDictionary<string, IModel>();
 
-        private static RabbitMQQueueAttribute _rabbitMQQueueAttribute;
+        private static readonly RabbitMQWrapper instance = new RabbitMQWrapper();
 
-        private const string RabbitMQQueueAttribute = "RabbitMQQueueAttribute";
+        private IConnection _conn;
 
-        private static IConnection _conn;
+        private RabbitMQWrapper() { }
 
-        private static readonly object LockObj = new object();
-
-        public RabbitMQWrapper(RabbitMQConfig config)
+        /// <summary>
+        /// 单例入口
+        /// </summary>
+        /// <returns></returns>
+        public static RabbitMQWrapper GetInstance()
         {
-            Open(config);
+            return instance;
         }
 
-        private static void Open(RabbitMQConfig config)
+        /// <summary>
+        /// 初始化，打开rabbitMQ服务器连接
+        /// </summary>
+        /// <param name="config"></param>
+        public void Init(RabbitMQConfig config)
         {
             if (_conn != null)
             {
                 return;
             }
-            lock (LockObj)
+
+            var factory = new ConnectionFactory
             {
-                if (_conn == null)
-                {
-                    var factory = new ConnectionFactory
-                    {
-                        //设置主机名
-                        HostName = config.Host,
+                //设置主机名
+                HostName = config.Host,
 
-                        //设置VirtualHost
-                        VirtualHost = config.VirtualHost.IsNullOrEmpty() ? "/" : config.VirtualHost,
+                //设置VirtualHost
+                VirtualHost = config.VirtualHost.IsNullOrEmpty() ? "/" : config.VirtualHost,
 
-                        //设置心跳时间
-                        RequestedHeartbeat = config.HeartBeat,
+                //设置心跳时间
+                RequestedHeartbeat = config.HeartBeat,
 
-                        //设置自动重连
-                        AutomaticRecoveryEnabled = config.AutomaticRecoveryEnabled,
+                //设置自动重连
+                AutomaticRecoveryEnabled = config.AutomaticRecoveryEnabled,
 
-                        //重连时间
-                        NetworkRecoveryInterval = config.NetworkRecoveryInterval,
+                //重连时间
+                NetworkRecoveryInterval = config.NetworkRecoveryInterval,
 
-                        //用户名
-                        UserName = config.UserName,
+                //用户名
+                UserName = config.UserName,
 
-                        //密码
-                        Password = config.Password
-                    };
-                    _conn = factory.CreateConnection();
-                }
-            }
+                //密码
+                Password = config.Password
+            };
+            _conn = factory.CreateConnection();
         }
 
-        private static RabbitMQQueueAttribute GetRabbitMqAttribute<T>()
+        /// <summary>
+        /// 获取实体的自定义特性，包含交换机，队列命名信息
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        private RabbitMQQueueAttribute GetRabbitMqAttribute<T>()
         {
-            if (_rabbitMQQueueAttribute.IsNull())
+            RabbitMQQueueAttribute result = null;
+
+            var typeOfT = typeof(T);
+            Attribute customAttribute = Attribute.GetCustomAttribute(typeOfT, typeof(RabbitMQQueueAttribute));
+            if (customAttribute != null)
             {
-                var typeOfT = typeof(T);
-                Attribute customAttribute = Attribute.GetCustomAttribute(typeOfT, typeof(RabbitMQQueueAttribute));
-                if (customAttribute != null)
-                {
-                    _rabbitMQQueueAttribute = customAttribute as RabbitMQQueueAttribute;
-                }
+                result = customAttribute as RabbitMQQueueAttribute;
             }
 
-            return _rabbitMQQueueAttribute;
+            return result;
         }
         #endregion
 
@@ -108,7 +112,7 @@ namespace Tracy.Frameworks.RabbitMQ
         /// <param name="durable">持久化，默认为true</param>
         /// <param name="autoDelete">自动删除</param>
         /// <param name="arguments">参数</param>
-        private static void ExchangeDeclare(IModel iModel, string exchange, string type = ExchangeType.Direct,
+        private void ExchangeDeclare(IModel iModel, string exchange, string type = ExchangeType.Direct,
             bool durable = true,
             bool autoDelete = false, IDictionary<string, object> arguments = null)
         {
@@ -131,7 +135,7 @@ namespace Tracy.Frameworks.RabbitMQ
         /// 客户端退出，该排他队列都会被自动删除的。这种队列适用于只限于一个客户端发送读取消息的应用场景。</param>
         /// <param name="autoDelete">自动删除</param>
         /// <param name="arguments">参数</param>
-        private static void QueueDeclare(IModel channel, string queue, bool durable = true, bool exclusive = false,
+        private void QueueDeclare(IModel channel, string queue, bool durable = true, bool exclusive = false,
             bool autoDelete = false, IDictionary<string, object> arguments = null)
         {
             queue = queue.IsNullOrWhiteSpace() ? "UndefinedQueueName" : queue.Trim();
@@ -147,27 +151,18 @@ namespace Tracy.Frameworks.RabbitMQ
         /// <param name="exchange">交换机名称</param>
         /// <param name="queue">队列名称</param>
         /// <param name="routingKey"></param>
-        /// <param name="isProperties">是否持久化，默认为true</param>
+        /// <param name="isProperties">是否持久化</param>
         /// <returns></returns>
-        private static IModel GetModel(string exchange, string queue, string routingKey, bool isProperties = false)
+        private IModel GetModel(string exchange, string queue, string routingKey, bool isProperties = false)
         {
             return ModelDic.GetOrAdd(queue, key =>
             {
-                var lockObject = string.Intern(queue);
-                lock (lockObject)
-                {
-                    if (ModelDic.ContainsKey(queue))
-                    {
-                        return ModelDic[queue];
-                    }
-
-                    var model = _conn.CreateModel();
-                    ExchangeDeclare(model, exchange, ExchangeType.Direct, isProperties);
-                    QueueDeclare(model, queue, isProperties);
-                    model.QueueBind(queue, exchange, routingKey);
-                    ModelDic[queue] = model;
-                    return model;
-                }
+                var model = _conn.CreateModel();
+                ExchangeDeclare(model, exchange, ExchangeType.Direct, isProperties);
+                QueueDeclare(model, queue, isProperties);
+                model.QueueBind(queue, exchange, routingKey);
+                ModelDic[queue] = model;
+                return model;
             });
         }
 
@@ -175,29 +170,21 @@ namespace Tracy.Frameworks.RabbitMQ
         /// 获取Model
         /// </summary>
         /// <param name="queue">队列名称</param>
-        /// <param name="isProperties">是否持久化，默认为true</param>
+        /// <param name="isProperties"></param>
         /// <returns></returns>
-        private static IModel GetModel(string queue, bool isProperties = false)
+        private IModel GetModel(string queue, bool isProperties = false)
         {
             return ModelDic.GetOrAdd(queue, value =>
             {
-                var lockObject = string.Intern(queue);
-                lock (lockObject)
-                {
-                    if (ModelDic.ContainsKey(queue))
-                    {
-                        return ModelDic[queue];
-                    }
+                var model = _conn.CreateModel();
+                QueueDeclare(model, queue, isProperties);
 
-                    var model = _conn.CreateModel();
-                    QueueDeclare(model, queue, isProperties);
+                //公平调度
+                model.BasicQos(0, 1, false);
 
-                    //设置公平调度，每次处理一条
-                    model.BasicQos(0, 1, false);
+                ModelDic[queue] = model;
 
-                    ModelDic[queue] = model;
-                    return model;
-                }
+                return model;
             });
         }
         #endregion
@@ -214,7 +201,7 @@ namespace Tracy.Frameworks.RabbitMQ
             var queueInfo = GetRabbitMqAttribute<T>();
             if (queueInfo.IsNull())
             {
-                throw new ArgumentException(RabbitMQQueueAttribute);
+                throw new ArgumentException("RabbitMQQueueAttribute");
             }
 
             var body = command.ToJson();
@@ -247,6 +234,7 @@ namespace Tracy.Frameworks.RabbitMQ
                 props.Persistent = true;
             }
             channel.BasicPublish(exchange, routingKey, props, body.SerializeUtf8());
+
         }
         #endregion
 
@@ -262,7 +250,7 @@ namespace Tracy.Frameworks.RabbitMQ
             var queueInfo = GetRabbitMqAttribute<T>();
             if (queueInfo.IsNull())
             {
-                throw new ArgumentException(RabbitMQQueueAttribute);
+                throw new ArgumentException("RabbitMQQueueAttribute");
             }
 
             Subscribe(queueInfo.QueueName, queueInfo.IsProperties, handler);
@@ -279,6 +267,7 @@ namespace Tracy.Frameworks.RabbitMQ
         public void Subscribe<T>(string queue, bool isProperties, Action<T> handler) where T : class
         {
             var channel = GetModel(queue, isProperties);
+
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += (model, ea) =>
             {
@@ -311,7 +300,7 @@ namespace Tracy.Frameworks.RabbitMQ
                 throw new ArgumentException("RabbitMqAttribute");
             }
 
-            Pull(queueInfo.ExchangeName, queueInfo.QueueName, queueInfo.QueueName, handler);
+            Pull(queueInfo.QueueName, queueInfo.IsProperties, handler);
         }
 
         /// <summary>
@@ -322,9 +311,9 @@ namespace Tracy.Frameworks.RabbitMQ
         /// <param name="queue"></param>
         /// <param name="routingKey"></param>
         /// <param name="handler">消费处理</param>
-        private void Pull<T>(string exchange, string queue, string routingKey, Action<T> handler) where T : class
+        private void Pull<T>(string queue, bool isProperties, Action<T> handler) where T : class
         {
-            var channel = GetModel(exchange, queue, routingKey);
+            var channel = GetModel(queue, isProperties);
 
             var result = channel.BasicGet(queue, false);
             if (result.IsNull())
@@ -332,146 +321,13 @@ namespace Tracy.Frameworks.RabbitMQ
                 return;
             }
 
+            //消费消息
             var msg = result.Body.DeserializeUtf8().FromJson<T>();
-
             handler(msg);
 
             //消息确认
             channel.BasicAck(result.DeliveryTag, false);
         }
-
-        #endregion
-
-        #region RPC
-
-        #region RPC客户端
-        /// <summary>
-        /// RPC客户端
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        public string RpcClient<T>(T command) where T : class
-        {
-            var queueInfo = GetRabbitMqAttribute<T>();
-
-            if (queueInfo.IsNull())
-                throw new ArgumentException("RabbitMqAttribute");
-
-            var body = command.ToJson();
-            var exchange = queueInfo.ExchangeName;
-            var queue = queueInfo.QueueName;
-            var routingKey = queueInfo.ExchangeName;
-            var isProperties = queueInfo.IsProperties;
-
-            return RpcClient(exchange, queue, routingKey, body, isProperties);
-        }
-
-        /// <summary>
-        /// RPC客户端
-        /// </summary>
-        /// <param name="exchange"></param>
-        /// <param name="queue"></param>
-        /// <param name="routingKey"></param>
-        /// <param name="body"></param>
-        /// <param name="isProperties"></param>
-        /// <returns></returns>
-        public string RpcClient(string exchange, string queue, string routingKey, string body, bool isProperties = false)
-        {
-            var channel = GetModel(exchange, queue, routingKey, isProperties);
-
-            var consumer = new QueueingBasicConsumer(channel);
-            channel.BasicConsume(queue, true, consumer);
-
-            try
-            {
-                var correlationId = Guid.NewGuid().ToString();
-                var basicProperties = channel.CreateBasicProperties();
-                basicProperties.ReplyTo = queue;
-                basicProperties.CorrelationId = correlationId;
-
-                channel.BasicPublish(exchange, routingKey, basicProperties, body.SerializeUtf8());
-
-                var sw = Stopwatch.StartNew();
-                while (true)
-                {
-                    var ea = consumer.Queue.Dequeue();
-                    if (ea.BasicProperties.CorrelationId == correlationId)
-                    {
-                        return ea.Body.DeserializeUtf8();
-                    }
-
-                    if (sw.ElapsedMilliseconds > 30000)
-                        throw new Exception("等待响应超时");
-                }
-            }
-            catch (Exception ex)
-            {
-                //throw ex.GetInnestException();
-                throw;
-            }
-        }
-        #endregion
-
-        #region RPC服务端
-        /// <summary>
-        /// RPC服务端
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="handler"></param>
-        public void RpcService<T>(Func<T, T> handler) where T : class
-        {
-            var queueInfo = GetRabbitMqAttribute<T>();
-            if (queueInfo.IsNull())
-            {
-                throw new ArgumentException("RabbitMqAttribute");
-            }
-
-            RpcService(queueInfo.ExchangeName, queueInfo.QueueName, queueInfo.IsProperties, handler);
-        }
-
-        /// <summary>
-        /// RPC服务端
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="exchange"></param>
-        /// <param name="queue"></param>
-        /// <param name="isProperties"></param>
-        /// <param name="handler"></param>
-        /// <param name="isDeadLetter"></param>
-        public void RpcService<T>(string exchange, string queue, bool isProperties, Func<T, T> handler)
-        {
-            //队列声明
-            var channel = GetModel(queue, isProperties);
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body;
-                var msgStr = body.DeserializeUtf8();
-                var msg = msgStr.FromJson<T>();
-
-                var props = ea.BasicProperties;
-                var replyProps = channel.CreateBasicProperties();
-                replyProps.CorrelationId = props.CorrelationId;
-
-                try
-                {
-                    msg = handler(msg);
-                }
-                catch (Exception ex)
-                {
-                    //ex.GetInnestException().WriteToFile("队列接收消息", "RabbitMq");
-                }
-                finally
-                {
-                    channel.BasicPublish(exchange, props.ReplyTo, replyProps, msg.ToJson().SerializeUtf8());
-                    channel.BasicAck(ea.DeliveryTag, false);
-                }
-            };
-            channel.BasicConsume(queue, false, consumer);
-        }
-        #endregion
 
         #endregion
 

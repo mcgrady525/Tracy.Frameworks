@@ -9,13 +9,14 @@ namespace Tracy.Frameworks.RabbitMQ.Tests
     {
         static void Main(string[] args)
         {
-            var rabbitMqProxy = new RabbitMQWrapper(new RabbitMQConfig
+            var rabbitMqProxy = RabbitMQWrapper.GetInstance();
+            rabbitMqProxy.Init(new RabbitMQConfig 
             {
                 AutomaticRecoveryEnabled = true,
                 HeartBeat = 60,
                 NetworkRecoveryInterval = new TimeSpan(60),
                 Host = "localhost",
-                VirtualHost= "/",
+                VirtualHost = "/",
                 UserName = "admin",
                 Password = "P@ssw0rd.123"
             });
