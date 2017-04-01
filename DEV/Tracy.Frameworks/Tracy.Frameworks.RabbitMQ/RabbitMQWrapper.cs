@@ -15,55 +15,24 @@ namespace Tracy.Frameworks.RabbitMQ
     /// <summary>
     /// RabbitMQ.Client原生封装类
     /// </summary>
-    public class RabbitMQWrapper : IDisposable
+    public class RabbitMQWrapper : IRabbitMQWrapper, IDisposable
     {
-        #region 初始化
         //RabbitMQ建议客户端线程之间不要共用Model，至少要保证共用Model的线程发送消息必须是串行的，但是建议尽量共用Connection。
-        private static IConnection conn;
-        private static ConcurrentDictionary<string, IModel> modelDic = new ConcurrentDictionary<string, IModel>();
+        private IConnection conn;
+        private ConcurrentDictionary<string, IModel> modelDic = new ConcurrentDictionary<string, IModel>();
         private static readonly object lockObj = new object();
 
         public RabbitMQWrapper() { }
 
         public RabbitMQWrapper(RabbitMQConfig config)
         {
-            CreateConnection(config);
-        }
-
-        /// <summary>
-        /// 初始化，打开rabbitMQ服务器连接
-        /// </summary>
-        /// <param name="config"></param>
-        private void CreateConnection(RabbitMQConfig config)
-        {
-            //双检锁保证只创建一个connection
             if (conn == null)
             {
                 lock (lockObj)
                 {
                     if (conn == null)
                     {
-                        var factory = new ConnectionFactory
-                        {
-                            //设置主机名
-                            HostName = config.Host,
-
-                            //设置VirtualHost
-                            VirtualHost = config.VirtualHost.IsNullOrEmpty() ? "/" : config.VirtualHost,
-
-                            //设置心跳时间
-                            RequestedHeartbeat = config.HeartBeat,
-
-                            //设置自动重连
-                            AutomaticRecoveryEnabled = config.AutomaticRecoveryEnabled,
-
-                            //用户名
-                            UserName = config.UserName,
-
-                            //密码
-                            Password = config.Password
-                        };
-                        conn = factory.CreateConnection();
+                        conn = CreateConnection(config);
                     }
                 }
             }
@@ -87,6 +56,37 @@ namespace Tracy.Frameworks.RabbitMQ
 
             return result;
         }
+
+        #region 创建服务器连接
+        /// <summary>
+        /// 创建rabbitMQ服务器连接，connection可以共用
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
+        public IConnection CreateConnection(RabbitMQConfig config)
+        {
+            var factory = new ConnectionFactory
+            {
+                //设置主机名
+                HostName = config.Host,
+
+                //设置VirtualHost
+                VirtualHost = config.VirtualHost.IsNullOrEmpty() ? "/" : config.VirtualHost,
+
+                //设置心跳时间
+                RequestedHeartbeat = config.HeartBeat,
+
+                //设置自动重连
+                AutomaticRecoveryEnabled = config.AutomaticRecoveryEnabled,
+
+                //用户名
+                UserName = config.UserName,
+
+                //密码
+                Password = config.Password
+            };
+            return factory.CreateConnection();
+        } 
         #endregion
 
         #region 声明交换器
@@ -186,14 +186,13 @@ namespace Tracy.Frameworks.RabbitMQ
         #endregion
 
         #region 发布消息
-
         /// <summary>
         /// 发布消息
         /// </summary>
-        /// <param name="command">指令</param>
-        /// <param name="channel">channel不为空时，供站点调用，站点自己负责释放channel资源</param>
-        /// <returns></returns>
-        public void Publish<T>(T command, IModel channel = null) where T : class
+        /// <typeparam name="T"></typeparam>
+        /// <param name="command"></param>
+        /// <param name="channel"></param>
+        public void Publish<T>(T command, IModel channel = null)
         {
             var queueInfo = GetRabbitMqAttribute<T>();
             if (queueInfo.IsNull())
@@ -210,17 +209,7 @@ namespace Tracy.Frameworks.RabbitMQ
             Publish(exchange, queue, routingKey, body, isProperties, channel);
         }
 
-        /// <summary>
-        /// 发布消息
-        /// </summary>
-        /// <param name="routingKey">路由键</param>
-        /// <param name="body">队列信息</param>
-        /// <param name="exchange">交换机名称</param>
-        /// <param name="queue">队列名</param>
-        /// <param name="isProperties">是否持久化</param>
-        /// <param name="channel">channel不为空时，供站点调用，站点自己负责释放channel资源</param>
-        /// <returns></returns>
-        public void Publish(string exchange, string queue, string routingKey, string body, bool isProperties = false, IModel channel = null)
+        private void Publish(string exchange, string queue, string routingKey, string body, bool isProperties = false, IModel channel = null)
         {
             if (channel == null)
             {
@@ -242,18 +231,16 @@ namespace Tracy.Frameworks.RabbitMQ
             }
             channel.BasicPublish(exchange, routingKey, props, body.SerializeUtf8());
 
-        }
-
+        } 
         #endregion
 
         #region 订阅消息
-
         /// <summary>
-        /// 接收消息
+        /// 订阅消息
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="handler">消费处理</param>
-        public void Subscribe<T>(Action<T> handler) where T : class
+        /// <param name="handler"></param>
+        public void Subscribe<T>(Action<T> handler)
         {
             var queueInfo = GetRabbitMqAttribute<T>();
             if (queueInfo.IsNull())
@@ -264,15 +251,7 @@ namespace Tracy.Frameworks.RabbitMQ
             Subscribe(queueInfo.QueueName, queueInfo.IsProperties, handler);
         }
 
-        /// <summary>
-        /// 接收消息
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="queue">队列名称</param>
-        /// <param name="isProperties"></param>
-        /// <param name="handler">消费处理</param>
-        /// <param name="isDeadLetter"></param>
-        public void Subscribe<T>(string queue, bool isProperties, Action<T> handler) where T : class
+        private void Subscribe<T>(string queue, bool isProperties, Action<T> handler)
         {
             var channel = GetModel(queue, isProperties);
 
@@ -289,18 +268,16 @@ namespace Tracy.Frameworks.RabbitMQ
                 channel.BasicAck(ea.DeliveryTag, false);
             };
             channel.BasicConsume(queue, false, consumer);
-        }
-
+        } 
         #endregion
 
         #region 获取消息
-
         /// <summary>
-        /// 获取消息
+        /// 获取消息(主动拉)
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="handler">消费处理</param>
-        public void Pull<T>(Action<T> handler) where T : class
+        /// <param name="handler"></param>
+        public void Pull<T>(Action<T> handler)
         {
             var queueInfo = GetRabbitMqAttribute<T>();
             if (queueInfo.IsNull())
@@ -311,15 +288,7 @@ namespace Tracy.Frameworks.RabbitMQ
             Pull(queueInfo.QueueName, queueInfo.IsProperties, handler);
         }
 
-        /// <summary>
-        /// 获取消息
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="exchange"></param>
-        /// <param name="queue"></param>
-        /// <param name="routingKey"></param>
-        /// <param name="handler">消费处理</param>
-        private void Pull<T>(string queue, bool isProperties, Action<T> handler) where T : class
+        private void Pull<T>(string queue, bool isProperties, Action<T> handler)
         {
             var channel = GetModel(queue, isProperties);
 
@@ -335,8 +304,7 @@ namespace Tracy.Frameworks.RabbitMQ
 
             //消息确认
             channel.BasicAck(result.DeliveryTag, false);
-        }
-
+        } 
         #endregion
 
         #region 释放资源
@@ -353,7 +321,7 @@ namespace Tracy.Frameworks.RabbitMQ
             //不用关闭connection，不用管它
             //conn.Dispose();
             //conn = null;
-        }
+        } 
         #endregion
     }
     #endregion
