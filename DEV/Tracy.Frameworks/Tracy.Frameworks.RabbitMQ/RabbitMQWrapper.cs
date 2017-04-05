@@ -7,6 +7,7 @@ using System.Linq;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Tracy.Frameworks.Common.Extends;
+using Tracy.Frameworks.Common.Helpers;
 using ExchangeType = RabbitMQ.Client.ExchangeType;
 
 namespace Tracy.Frameworks.RabbitMQ
@@ -86,7 +87,7 @@ namespace Tracy.Frameworks.RabbitMQ
                 Password = config.Password
             };
             return factory.CreateConnection();
-        } 
+        }
         #endregion
 
         #region 声明交换器
@@ -231,7 +232,7 @@ namespace Tracy.Frameworks.RabbitMQ
             }
             channel.BasicPublish(exchange, routingKey, props, body.SerializeUtf8());
 
-        } 
+        }
         #endregion
 
         #region 订阅消息
@@ -262,13 +263,20 @@ namespace Tracy.Frameworks.RabbitMQ
                 var msgStr = body.DeserializeUtf8();
                 var msg = msgStr.FromJson<T>();
 
-                handler(msg);
-
-                //消息确认
-                channel.BasicAck(ea.DeliveryTag, false);
+                try
+                {
+                    handler(msg);
+                    //消息确认
+                    channel.BasicAck(ea.DeliveryTag, false);
+                }
+                catch (Exception ex)
+                {
+                    //写日志
+                    LoggerHelper.Error(() => string.Format("订阅消息发生异常，queue:{0},详细信息:{1}", queue, ex.ToString()));
+                }
             };
             channel.BasicConsume(queue, false, consumer);
-        } 
+        }
         #endregion
 
         #region 获取消息
@@ -300,11 +308,18 @@ namespace Tracy.Frameworks.RabbitMQ
 
             //消费消息
             var msg = result.Body.DeserializeUtf8().FromJson<T>();
-            handler(msg);
-
-            //消息确认
-            channel.BasicAck(result.DeliveryTag, false);
-        } 
+            try
+            {
+                handler(msg);
+                //消息确认
+                channel.BasicAck(result.DeliveryTag, false);
+            }
+            catch (Exception ex)
+            {
+                //写日志
+                LoggerHelper.Error(() => string.Format("获取消息发生异常，queue:{0},详细信息:{1}", queue, ex.ToString()));
+            }
+        }
         #endregion
 
         #region 释放资源
@@ -321,7 +336,7 @@ namespace Tracy.Frameworks.RabbitMQ
             //不用关闭connection，不用管它
             //conn.Dispose();
             //conn = null;
-        } 
+        }
         #endregion
     }
     #endregion
