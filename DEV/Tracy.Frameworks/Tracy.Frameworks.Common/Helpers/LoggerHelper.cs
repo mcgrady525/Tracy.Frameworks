@@ -14,7 +14,7 @@ namespace Tracy.Frameworks.Common.Helpers
     /// </summary>
     public class LoggerHelper
     {
-        private static readonly Logger defaultLog = LogManager.GetLogger("Log.Log");
+        private static readonly Logger defaultLog = LogManager.GetLogger("Default.Log");
 
         static LoggerHelper()
         {
