@@ -77,6 +77,18 @@ namespace Tracy.Frameworks.Common.Tests
             var result5 = "0".ToBool();
         }
 
+        [NUnit.Framework.Test]
+        public void TestMethod1()
+        {
+            var input = "aaa";
+
+            var f = input.ToFloat();
+
+            var d = input.ToDouble();
+
+
+        }
+
         private User GetUser()
         {
             return new User

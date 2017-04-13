@@ -47,6 +47,7 @@
     <Compile Include="Entity\BaseLog.cs" />
     <Compile Include="Entity\DebugLog.cs" />
     <Compile Include="Entity\ErrorLog.cs" />
+    <Compile Include="Entity\OperationLog.cs" />
     <Compile Include="Entity\PerformanceLog.cs" />
     <Compile Include="Entity\TraceLog.cs" />
     <Compile Include="Entity\XmlLog.cs" />
