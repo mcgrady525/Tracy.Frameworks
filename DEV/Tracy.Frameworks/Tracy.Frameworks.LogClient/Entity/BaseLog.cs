@@ -32,9 +32,14 @@ namespace Tracy.Frameworks.LogClient.Entity
         public string MachineName { get; set; }
 
         /// <summary>
-        /// IP
+        /// 服务器IP，即web服务器或应用服务器本机IP
         /// </summary>
         public string IPAddress { get; set; }
+
+        /// <summary>
+        /// 客户端IP，方便区分是谁发起的请求
+        /// </summary>
+        public string ClientIP { get; set; }
 
         /// <summary>
         /// 进程id

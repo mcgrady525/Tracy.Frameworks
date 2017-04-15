@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Tracy.Frameworks.Common.Helpers
 {
@@ -11,6 +12,15 @@ namespace Tracy.Frameworks.Common.Helpers
     /// </summary>
     public class RegexHelper
     {
+        /// <summary>
+        /// 是否有效IP地址
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <returns></returns>
+        public static bool IsIP(string ip)
+        {
+            return Regex.IsMatch(ip, @"^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$");
+        }
 
     }
 }

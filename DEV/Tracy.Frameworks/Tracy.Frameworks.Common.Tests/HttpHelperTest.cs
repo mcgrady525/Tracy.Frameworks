@@ -19,5 +19,12 @@ namespace Tracy.Frameworks.Common.Tests
             var result= HttpHelper.SendRequestByHttpWebRequest(url, data);
         }
 
+        [Test]
+        public void Test_GetIP()
+        {
+            var result = HttpHelper.GetLocalIP();
+            var result1 = HttpHelper.GetClientIP();
+        }
+
     }
 }
