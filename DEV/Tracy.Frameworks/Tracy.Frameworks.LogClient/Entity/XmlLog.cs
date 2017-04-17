@@ -43,6 +43,11 @@ namespace Tracy.Frameworks.LogClient.Entity
         public string MethodName { get; set; }
 
         /// <summary>
+        /// 方法名(中文)
+        /// </summary>
+        public string MethodCName { get; set; }
+
+        /// <summary>
         /// 应用程序域名称
         /// </summary>
         public string AppDomainName { get; set; }
