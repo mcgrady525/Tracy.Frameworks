@@ -528,8 +528,6 @@ namespace Tracy.Frameworks.Common.Extends
             //}        
         }
 
-        private static readonly DateTime MinDate = new DateTime(1900, 1, 1);
-
         /// <summary>
         /// 轉換日期，轉換失敗時，返回 defaultValue
         /// </summary>
@@ -546,10 +544,7 @@ namespace Tracy.Frameworks.Common.Extends
                 if (DateTime.TryParseExact(str, new string[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMdd", "yyyyMMdd HH:mm:ss", "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "MM/dd/yyyy HH:mm:ss" }, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                     return d;
                 else
-                    if (default(DateTime) == defaultValue)
-                        return MinDate;
-                    else
-                        return defaultValue;
+                    return defaultValue;
             }
         }
 
@@ -563,14 +558,10 @@ namespace Tracy.Frameworks.Common.Extends
         public static DateTime ToDateTime(this string str, string dateFmt, DateTime defaultValue)
         {
             DateTime d;
-            //if (DateTime.TryParse(str, out d))
-            //    return d;
-            //else {
             if (DateTime.TryParseExact(str, dateFmt, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out d))
                 return d;
             else
-                return defaultValue;
-            //}            
+                return defaultValue;           
         }
 
         /// <summary>

@@ -86,6 +86,14 @@ namespace Tracy.Frameworks.Common.Tests
 
             var d = input.ToDouble();
 
+            var result1 = "".Trim();
+
+            var result2 = DateTime.MinValue;
+
+            var result3 = 0 % 2;
+
+            var result4 = "********".ToDateTime(DateTime.MinValue);
+
 
         }
 
