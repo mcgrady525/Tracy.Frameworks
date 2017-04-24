@@ -97,6 +97,28 @@ namespace Tracy.Frameworks.Common.Tests
 
         }
 
+        [NUnit.Framework.Test]
+        public void TestMethod2()
+        {
+            //生成一个随机数
+            //1，GUID
+            //2，时间戳
+            //3，随机数
+
+            //1
+            var r1 = Guid.NewGuid().ToString();
+            var r2 = Guid.NewGuid().ToString("N");
+
+            //2
+            var r4 = DateTime.Now.Ticks;
+
+            //3
+            Random r = new Random();
+            var r3 = r.Next();           
+
+
+        }
+
         private User GetUser()
         {
             return new User
