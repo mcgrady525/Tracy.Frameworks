@@ -35,7 +35,7 @@ namespace Tracy.Frameworks.Common.Tests
         public void StringExtension_FromXml_Test()
         {
             var user = GetUser();
-            var result = user.ToXml(isOmitXmlDeclaration:true, isOmitDefaultNamespaces:true, isNeedFormat:true);
+            var result = user.ToXml(isOmitXmlDeclaration: true, isOmitDefaultNamespaces: true, isNeedFormat: true);
 
             var user1 = result.FromXml<User>();
 
@@ -51,7 +51,7 @@ namespace Tracy.Frameworks.Common.Tests
 
         [NUnit.Framework.Test]
         public void StringExtension_Clone_Test()
-        { 
+        {
             //testÉî¿½±´ºÍÇ³¿½±´
             var user = GetUser();//user.Name= "zhangsan"
             var deepUser = user.DeepClone();
@@ -114,9 +114,22 @@ namespace Tracy.Frameworks.Common.Tests
 
             //3
             Random r = new Random();
-            var r3 = r.Next();           
+            var r3 = r.Next();
 
 
+        }
+
+        [NUnit.Framework.Test]
+        public void TestMethod3()
+        {
+            //²âÊÔbyte[]
+            //"aaa"
+            //""»òstring.Empty
+            var b1 = string.Empty.LZ4Compress();
+            if (b1 != null && b1.Length > 0)
+            {
+                var r1 = b1.LZ4Decompress();
+            }
         }
 
         private User GetUser()
@@ -127,10 +140,10 @@ namespace Tracy.Frameworks.Common.Tests
                 Name = "zhangsan",
                 Age = 31,
                 CreateTime = new DateTime(2016, 5, 5, 15, 27, 27),
-                Department = new Department 
+                Department = new Department
                 {
-                    Id= 0,
-                    Name= "department111"
+                    Id = 0,
+                    Name = "department111"
                 }
             };
         }
