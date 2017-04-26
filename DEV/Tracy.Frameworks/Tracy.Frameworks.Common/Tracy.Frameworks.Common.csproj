@@ -95,6 +95,7 @@
     <Compile Include="Extends\IntExtension.cs" />
     <Compile Include="Extends\ObjectExtension.cs" />
     <Compile Include="Extends\PropertyExtension.cs" />
+    <Compile Include="Helpers\CacheHelper.cs" />
     <Compile Include="Helpers\CodeTimerHelper.cs" />
     <Compile Include="Helpers\ConfigHelper.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Script.Serialization;
 using Tracy.Frameworks.Common.Extends;
+using Tracy.Frameworks.Common.Helpers;
 
 namespace Tracy.Frameworks.Common.Tests
 {
@@ -131,6 +132,40 @@ namespace Tracy.Frameworks.Common.Tests
                 var r1 = b1.LZ4Decompress();
             }
         }
+
+        [NUnit.Framework.Test]
+        public void TestMethod4()
+        {
+            //测试CacheHelper
+            var key1 = "key1";
+            var key2 = "key2";
+
+            var user1 = CacheHelper.Get(key1) as List<User>;
+            if (user1 == null)
+            {
+                user1 = new List<User> { GetUser() };
+                CacheHelper.Set(key1, user1, DateTime.UtcNow.AddSeconds(10));
+            }
+
+            //测试过期时间
+            user1 = CacheHelper.Get(key1) as List<User>;
+
+            var user2 = CacheHelper.Get(key2) as List<User>;
+            if (user2 == null)
+            {
+                user2 = new List<User> { GetUser() };
+                CacheHelper.Set(key2, user2, DateTime.UtcNow.AddSeconds(60));
+            }
+
+            //clear all
+            CacheHelper.RemoveAll();
+
+            var user11 = CacheHelper.Get(key1) as List<User>;
+            var user22 = CacheHelper.Get(key2) as List<User>;
+        }
+
+
+
 
         private User GetUser()
         {
