@@ -164,6 +164,18 @@ namespace Tracy.Frameworks.Common.Tests
             var user22 = CacheHelper.Get(key2) as List<User>;
         }
 
+        [NUnit.Framework.Test]
+        public void TestMethod5()
+        {
+            //≤‚ ‘¿©’π∑Ω∑®EqualsIgnoreCase
+            var b1 = "aaa".EqualsIgnoreCase("aaa");
+            var b2 = "aaa".EqualsIgnoreCase("AAA");
+            var b3 = "aaa".EqualsIgnoreCase("aAa");
+            var b4 = "aaa".EqualsIgnoreCase("abc");
+
+
+        }
+
 
 
 
