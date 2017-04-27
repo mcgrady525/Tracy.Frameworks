@@ -12,18 +12,17 @@ namespace Tracy.Frameworks.LogClient.Tests
         [NUnit.Framework.Test]
         public void TestMethod2()
         {
-            var debugLog = new DebugLog 
+            var debugLog = new DebugLog
             {
-                SystemCode= "Ubtrip",
-                Source= "Ubtrip.UI",
+                SystemCode = "Ubtrip",
+                Source = "Ubtrip.UI",
                 Message = "Message111",
                 Detail = "Detail111"
             };
 
-            var result = debugLog.ToXml(isNeedFormat:true);
+            var result = debugLog.ToXml(isNeedFormat: true);
 
         }
-
 
         [NUnit.Framework.Test]
         public void TestMethod1()
@@ -65,7 +64,7 @@ namespace Tracy.Frameworks.LogClient.Tests
             //}
 
             var list = new List<DebugLog>();
-            list.Add(new DebugLog 
+            list.Add(new DebugLog
             {
                 SystemCode = "Interface",
                 Source = "Interface.Service",
@@ -73,13 +72,33 @@ namespace Tracy.Frameworks.LogClient.Tests
                 Detail = "Detail111"
             });
 
-            list.Add(new DebugLog 
+            list.Add(new DebugLog
             {
                 SystemCode = "Interface",
                 Source = "Interface.Service",
                 Message = "Message国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油国足加油",
                 Detail = "Detail222"
             });
+
+            var result = list.ToJson();
+        }
+
+        [NUnit.Framework.Test]
+        public void TestMethod3()
+        {
+            var list = new List<DebugLog>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                var debugLog = new DebugLog
+                {
+                    SystemCode = "TestSystemCode" + i,
+                    Source = "TestSource" + i,
+                    Message = "Message" + i,
+                    Detail = "Detail" + i
+                };
+                list.Add(debugLog);
+            }
 
             var result = list.ToJson();
         }
