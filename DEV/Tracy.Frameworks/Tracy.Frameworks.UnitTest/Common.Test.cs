@@ -14,7 +14,37 @@ namespace Tracy.Frameworks.UnitTest
     [TestFixture]
     public class CommonTest
     {
+        [Test]
+        public void Test_Extends_ToDataTable()
+        {
+            var list = new List<UserFrom>();
+            list.Add(new UserFrom 
+            {
+                Name= "mcgradylu",
+                Age= 20
+            });
+            list.Add(new UserFrom 
+            {
+                Name= "kobe",
+                Age= 22
+            });
 
+            var dt = list.ToDataTable();
+        }
 
+    }
+
+    public class UserFrom
+    {
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+    }
+
+    public class UserTo
+    {
+        public string Name { get; set; }
+
+        public int Age { get; set; }
     }
 }

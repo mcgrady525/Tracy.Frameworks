@@ -240,7 +240,7 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         /// <summary>
-        /// 将 List 转换为 DataTable, 只针对 T 中 的 public Property
+        /// List转DataTable(仅针对T中的公共属性)
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
