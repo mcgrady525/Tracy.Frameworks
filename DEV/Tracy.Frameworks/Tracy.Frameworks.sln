@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.Common", "Tracy.Frameworks.Common\Tracy.Frameworks.Common.csproj", "{04A1FB4B-D298-47A6-866B-47092E1EA628}"
 EndProject
@@ -43,6 +43,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.RabbitMQ", "Tracy.Frameworks.RabbitMQ\Tracy.Frameworks.RabbitMQ.csproj", "{16CEE16E-0E00-48A4-8390-460061FA4B9F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.RabbitMQ.Tests", "Tracy.Frameworks.RabbitMQ.Tests\Tracy.Frameworks.RabbitMQ.Tests.csproj", "{B7D38C00-BD60-4F69-BB17-921DC7A56F5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.UnitTest", "Tracy.Frameworks.UnitTest\Tracy.Frameworks.UnitTest.csproj", "{53B2AF23-B59B-472A-B928-5E91EFECB859}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -304,6 +306,18 @@ Global
 		{B7D38C00-BD60-4F69-BB17-921DC7A56F5B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B7D38C00-BD60-4F69-BB17-921DC7A56F5B}.Release|Win32.ActiveCfg = Release|Any CPU
 		{B7D38C00-BD60-4F69-BB17-921DC7A56F5B}.Release|x86.ActiveCfg = Release|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Release|Win32.ActiveCfg = Release|Any CPU
+		{53B2AF23-B59B-472A-B928-5E91EFECB859}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -315,6 +329,7 @@ Global
 		{97F764BE-D7B4-4FF4-8468-D8479F54D076} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
 		{549388E2-BFD4-442C-B894-3504071F3B77} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
 		{B7D38C00-BD60-4F69-BB17-921DC7A56F5B} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
+		{53B2AF23-B59B-472A-B928-5E91EFECB859} = {DC3915F5-FE00-4F1E-AAA1-4A52634043FD}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = LNFramework.vsmdi
