@@ -91,6 +91,7 @@
     <Compile Include="Exceptions\ValidationException\ValidationResult.cs" />
     <Compile Include="Extends\AttributeExtension.cs" />
     <Compile Include="Extends\DateTimeExtension.cs" />
+    <Compile Include="Extends\DtoExtension.cs" />
     <Compile Include="Extends\EFExtension.cs" />
     <Compile Include="Extends\IntExtension.cs" />
     <Compile Include="Extends\ObjectExtension.cs" />
