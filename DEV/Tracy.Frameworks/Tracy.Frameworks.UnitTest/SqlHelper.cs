@@ -41,7 +41,6 @@ namespace Tracy.Frameworks.UnitTest
 
                 using (var sqlbulkcopy = new SqlBulkCopy((SqlConnection)_conn))
                 {
-                    //sqlbulkcopy.DestinationTableName = dt.TableName;
                     sqlbulkcopy.DestinationTableName = tableName;
                     for (var i = 0; i < dt.Columns.Count; i++)
                     {

@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.Test.cs" />
+    <Compile Include="LogClient.Test.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\Tracy.Frameworks.Common\Tracy.Frameworks.Common.csproj">
       <Project>{04a1fb4b-d298-47a6-866b-47092e1ea628}</Project>
       <Name>Tracy.Frameworks.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tracy.Frameworks.LogClient\Tracy.Frameworks.LogClient.csproj">
+      <Project>{4cb85c57-7e7b-47fc-844e-272172294060}</Project>
+      <Name>Tracy.Frameworks.LogClient</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
