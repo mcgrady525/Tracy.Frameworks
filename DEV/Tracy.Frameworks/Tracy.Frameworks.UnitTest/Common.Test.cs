@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Tracy.Frameworks.Common.Extends;
+using Tracy.Frameworks.Common.Helpers;
 
 namespace Tracy.Frameworks.UnitTest
 {
@@ -18,20 +19,28 @@ namespace Tracy.Frameworks.UnitTest
         public void Test_Extends_ToDataTable()
         {
             var list = new List<UserFrom>();
-            list.Add(new UserFrom 
+            list.Add(new UserFrom
             {
-                Name= "mcgradylu",
-                Age= 20
+                Name = "mcgradylu",
+                Age = 20
             });
-            list.Add(new UserFrom 
+            list.Add(new UserFrom
             {
-                Name= "kobe",
-                Age= 22
+                Name = "kobe",
+                Age = 22
             });
 
             var dt = list.ToDataTable();
         }
 
+    }
+
+    public class TestBatchInsert
+    {
+        /// <summary>
+        /// 值，用guid表示
+        /// </summary>
+        public string Val { get; set; }
     }
 
     public class UserFrom

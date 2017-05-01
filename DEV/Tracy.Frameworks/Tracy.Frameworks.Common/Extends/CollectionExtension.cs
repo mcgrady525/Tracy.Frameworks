@@ -244,7 +244,7 @@ namespace Tracy.Frameworks.Common.Extends
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
-        public static DataTable ToDataTable<T>(this List<T> list) where T : class
+        public static DataTable ToDataTable<T>(this List<T> list)
         {
             if (list == null)
                 return null;
