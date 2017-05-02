@@ -265,7 +265,11 @@ namespace Tracy.Frameworks.RabbitMQ
 
                 try
                 {
+                    var stopWatch = new Stopwatch();
+                    stopWatch.Start();
                     handler(msg);
+                    stopWatch.Stop();
+                    LoggerHelper.Info(() => string.Format("完成消费消息，用时：{0}ms", stopWatch.ElapsedMilliseconds.ToString("N0")));
                 }
                 catch (Exception ex)
                 {

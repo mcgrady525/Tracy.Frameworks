@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Tracy.Frameworks.Common.Extends;
 using Tracy.Frameworks.Common.Helpers;
+using System.Diagnostics;
 
 namespace Tracy.Frameworks.UnitTest
 {
@@ -31,6 +32,30 @@ namespace Tracy.Frameworks.UnitTest
             });
 
             var dt = list.ToDataTable();
+        }
+
+        [Test]
+        public void Test_Stopwatch()
+        { 
+            //1，var stopWatch= new Stopwatch();
+            //2，var stopWatch= Stopwatch.StartNew();
+
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            //Do1();
+
+            stopWatch.Stop();
+
+            stopWatch = Stopwatch.StartNew();
+            stopWatch.Start();
+
+            //Do1();
+
+            stopWatch.Stop();
+
+
+
         }
 
     }
