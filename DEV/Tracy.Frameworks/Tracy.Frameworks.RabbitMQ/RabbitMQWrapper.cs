@@ -266,13 +266,14 @@ namespace Tracy.Frameworks.RabbitMQ
                 try
                 {
                     handler(msg);
-                    //消息确认
-                    channel.BasicAck(ea.DeliveryTag, false);
                 }
                 catch (Exception ex)
                 {
-                    //写日志
-                    LoggerHelper.Error(() => string.Format("订阅消息发生异常，queue:{0},详细信息:{1}", queue, ex.ToString()));
+                    LoggerHelper.Error(() => string.Format("订阅消息发生异常，queue:{0}，消息详情：{1}，错误详情：{2}", queue, msgStr, ex.ToString()));
+                }
+                finally
+                {
+                    channel.BasicAck(ea.DeliveryTag, false);
                 }
             };
             channel.BasicConsume(queue, false, consumer);
@@ -311,13 +312,14 @@ namespace Tracy.Frameworks.RabbitMQ
             try
             {
                 handler(msg);
-                //消息确认
-                channel.BasicAck(result.DeliveryTag, false);
             }
             catch (Exception ex)
             {
-                //写日志
-                LoggerHelper.Error(() => string.Format("获取消息发生异常，queue:{0},详细信息:{1}", queue, ex.ToString()));
+                LoggerHelper.Error(() => string.Format("获取消息发生异常，queue:{0}，消息详情：{1}，错误详情：{2}", queue, msg.ToJson(), ex.ToString()));
+            }
+            finally
+            {
+                channel.BasicAck(result.DeliveryTag, false);
             }
         }
         #endregion
