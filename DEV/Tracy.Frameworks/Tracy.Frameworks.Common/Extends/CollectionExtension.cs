@@ -247,7 +247,9 @@ namespace Tracy.Frameworks.Common.Extends
         public static DataTable ToDataTable<T>(this List<T> list)
         {
             if (list == null)
+            {
                 return null;
+            }
 
             Type type = typeof(T);
             var ps = type.GetProperties();
@@ -266,10 +268,7 @@ namespace Tracy.Frameworks.Common.Extends
                     cols.Add(new DataColumn(p.Name, p.PropertyType));
                 }
             }
-            //var cols = from p in ps
-            //           let pp = p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition().Equals(typeof(Nullable<>)
-            //           select new DataColumn(p.Name, p.PropertyType);
-
+            
             DataTable dt = new DataTable();
             dt.Columns.AddRange(cols.ToArray());
 
