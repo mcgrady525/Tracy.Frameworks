@@ -53,9 +53,6 @@ namespace Tracy.Frameworks.UnitTest
             //Do1();
 
             stopWatch.Stop();
-
-
-
         }
 
     }

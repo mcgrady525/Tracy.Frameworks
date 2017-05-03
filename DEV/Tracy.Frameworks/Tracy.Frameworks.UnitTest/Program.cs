@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Tracy.Frameworks.Common.Helpers;
 
@@ -11,7 +13,45 @@ namespace Tracy.Frameworks.UnitTest
     {
         static void Main(string[] args)
         {
-            TestBatchInsertDemo();            
+            //TestBatchInsertDemo();            
+            TestStopwatch();
+        }
+
+        /// <summary>
+        /// 测试Stopwatch
+        /// </summary>
+        private static void TestStopwatch()
+        {
+            //1，var stopWatch= new Stopwatch();
+            //2，var stopWatch= Stopwatch.StartNew();//这种方式，不再需要调用Start()方法。
+
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            Do1();
+
+            stopWatch.Stop();
+            Console.WriteLine(string.Format("使用new Stopwatch方法，用时：{0}", stopWatch.ElapsedMilliseconds.ToString("N0")));
+
+            var stopWatch1 = Stopwatch.StartNew();
+            //stopWatch.Start();
+
+            Do2();
+
+            stopWatch1.Stop();
+            Console.WriteLine(string.Format("使用Stopwatch.StartNew方法，用时：{0}", stopWatch1.ElapsedMilliseconds.ToString("N0")));
+
+            Console.ReadKey();
+        }
+
+        private static void Do2()
+        {
+            Thread.Sleep(500);
+        }
+
+        private static void Do1()
+        {
+            Thread.Sleep(1000);
         }
 
         /// <summary>
