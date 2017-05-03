@@ -8,7 +8,6 @@ using System.Data.Entity.Validation;
 using System.IO;
 using System.Configuration;
 using Tracy.Frameworks.Common.Exceptions;
-using Tracy.Frameworks.Log;
 using Tracy.Frameworks.Common.Exceptions.ValidationException;
 using Tracy.Frameworks.Common.Extends;
 
@@ -54,7 +53,7 @@ namespace Tracy.Frameworks.Service
                 {
                     detailStr = error.ToString();
                 }
-                ErrorLogManager.Instance.Enqueue(new ErrorLogInfo() { Message = error.Message, Detail = detailStr, SystemCode = SystemCode, Source = Source });
+                //ErrorLogManager.Instance.Enqueue(new ErrorLogInfo() { Message = error.Message, Detail = detailStr, SystemCode = SystemCode, Source = Source });
             }
             catch { return true; }
             return true; //True时表示异常不中止WCF会话

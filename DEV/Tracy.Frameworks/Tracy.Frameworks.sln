@@ -1,14 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.Common", "Tracy.Frameworks.Common\Tracy.Frameworks.Common.csproj", "{04A1FB4B-D298-47A6-866B-47092E1EA628}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.Mvc", "Tracy.Frameworks.Mvc\Tracy.Frameworks.Mvc.csproj", "{7496FFF6-5395-4A78-9F12-5FB030C9C671}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.VConfigs", "Tracy.Frameworks.VConfigs\Tracy.Frameworks.VConfigs.csproj", "{3505FE32-0A72-4C25-A1C9-2D7E5D24C79D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.Log", "Tracy.Frameworks.Log\Tracy.Frameworks.Log.csproj", "{B34BDE9C-83F9-46D4-9A74-38B364A96761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracy.Frameworks.Service", "Tracy.Frameworks.Service\Tracy.Frameworks.Service.csproj", "{95661638-F7C6-48F6-8698-AA88CA2E4DB3}"
 EndProject
@@ -76,18 +74,6 @@ Global
 		{3505FE32-0A72-4C25-A1C9-2D7E5D24C79D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3505FE32-0A72-4C25-A1C9-2D7E5D24C79D}.Release|Win32.ActiveCfg = Release|Any CPU
 		{3505FE32-0A72-4C25-A1C9-2D7E5D24C79D}.Release|x86.ActiveCfg = Release|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Release|Win32.ActiveCfg = Release|Any CPU
-		{B34BDE9C-83F9-46D4-9A74-38B364A96761}.Release|x86.ActiveCfg = Release|Any CPU
 		{95661638-F7C6-48F6-8698-AA88CA2E4DB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{95661638-F7C6-48F6-8698-AA88CA2E4DB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95661638-F7C6-48F6-8698-AA88CA2E4DB3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
