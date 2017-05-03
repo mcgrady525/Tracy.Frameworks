@@ -1,4 +1,0 @@
-﻿[
-{"$id":"1","ObjectJsonString":{"$id":"1","OrderId":"30000007","Title":"title7","Summary":"summary7","OrderDate":"\\/Date(1433485307400+0800)\\/"}},
-{"$id":"2","ObjectJsonString":{"$id":"2","OrderId":"30000008","Title":"title8","Summary":"summary8","OrderDate":"\\/Date(1433485307400+0800)\\/"}}
-]
