@@ -7,6 +7,8 @@ using NUnit.Framework;
 using Tracy.Frameworks.Common.Extends;
 using Tracy.Frameworks.Common.Helpers;
 using System.Diagnostics;
+using EmitMapper;
+using EmitMapper.MappingConfiguration;
 
 namespace Tracy.Frameworks.UnitTest
 {
@@ -35,35 +37,28 @@ namespace Tracy.Frameworks.UnitTest
         }
 
         [Test]
-        public void Test_Stopwatch()
-        { 
-            //1，var stopWatch= new Stopwatch();
-            //2，var stopWatch= Stopwatch.StartNew();
+        public void Test_Extends_Dto()
+        {
+            //默认
+            var userFrom = new UserFrom { Name = "zhangsan", Age = 20 };
+            //var result = userFrom.ToDto<UserFrom, UserTo>();
 
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
-
-            //Do1();
-
-            stopWatch.Stop();
-
-            stopWatch = Stopwatch.StartNew();
-            stopWatch.Start();
-
-            //Do1();
-
-            stopWatch.Stop();
+            //属性名字不一样的
+            var mapper = ObjectMapperManager.DefaultInstance.GetMapper<UserFrom, UserTo1>(new DefaultMapConfig()
+                .MatchMembers((x, y) =>
+                {
+                    if (x == "Age" && y == "UserAge")
+                    {
+                        return true;
+                    }
+                    return x == y;
+                }));
+            var result1 = mapper.Map(userFrom);
         }
 
     }
 
-    public class TestBatchInsert
-    {
-        /// <summary>
-        /// 值，用guid表示
-        /// </summary>
-        public string Val { get; set; }
-    }
+    
 
     public class UserFrom
     {
@@ -77,5 +72,12 @@ namespace Tracy.Frameworks.UnitTest
         public string Name { get; set; }
 
         public int Age { get; set; }
+    }
+
+    public class UserTo1
+    {
+        public string Name { get; set; }
+
+        public int UserAge { get; set; }
     }
 }

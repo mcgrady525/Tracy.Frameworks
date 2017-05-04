@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Tracy.Frameworks.Common.Helpers;
+using EmitMapper;
+using Nelibur.ObjectMapper;
 
 namespace Tracy.Frameworks.UnitTest
 {
@@ -14,7 +16,38 @@ namespace Tracy.Frameworks.UnitTest
         static void Main(string[] args)
         {
             //TestBatchInsertDemo();            
-            TestStopwatch();
+            //TestStopwatch();
+            TestDtoMapper();
+        }
+
+        private static void TestDtoMapper()
+        {
+            //比较TinyMapper和EmitMapper的性能
+            var input = new DtoFrom
+            {
+                Name = "zhangsan",
+                Age = 20,
+                CreatedTime = DateTime.Now
+            };
+            DtoTo result = null;
+            var iteration = 10 * 10000;
+            CodeTimerHelper.Initialize();
+
+            //1，EmitMapper
+            CodeTimerHelper.Time("EmitMapper性能测试(10 * 10000)", iteration, () =>
+            {
+                var mapper = ObjectMapperManager.DefaultInstance.GetMapper<DtoFrom, DtoTo>();
+                result = mapper.Map(input);
+            });
+
+            //2，TinyMapper
+            CodeTimerHelper.Time("TinyMapper性能测试(10 * 10000)", iteration, () =>
+            {
+                TinyMapper.Bind<DtoFrom, DtoTo>();
+                result = TinyMapper.Map<DtoTo>(input);
+            });
+
+            Console.ReadKey();
         }
 
         /// <summary>
@@ -105,5 +138,31 @@ namespace Tracy.Frameworks.UnitTest
             Console.ReadKey();
         }
 
+    }
+
+    public class DtoFrom
+    {
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+
+        public DateTime CreatedTime { get; set; }
+    }
+
+    public class DtoTo
+    {
+        public string Name { get; set; }
+
+        public int Age { get; set; }
+
+        public DateTime CreatedTime { get; set; }
+    }
+
+    public class TestBatchInsert
+    {
+        /// <summary>
+        /// 值，用guid表示
+        /// </summary>
+        public string Val { get; set; }
     }
 }
