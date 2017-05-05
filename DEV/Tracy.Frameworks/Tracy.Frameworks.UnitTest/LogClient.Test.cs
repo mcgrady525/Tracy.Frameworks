@@ -35,5 +35,30 @@ namespace Tracy.Frameworks.UnitTest
 
         }
 
+        [Test]
+        public void Test_OperateLog_Insert()
+        {
+            var list = new List<OperateLog>();
+            var nums = Enumerable.Range(1, 100).ToList();
+            nums.ForEach(i =>
+            {
+                list.Add(new OperateLog
+                {
+                    SystemCode = "SystemCode" + i,
+                    Source = "Source" + i,
+                    OperatedTime = DateTime.Now,
+                    UserId = "UserId" + i,
+                    UserName = "UserName" + i,
+                    OperateModule = "OperateModule" + i,
+                    OperateType = "OperateType" + i,
+                    ModifyBefore = "ModifyBefore" + i,
+                    ModifyAfter = "ModifyAfter" + i
+                });
+            });
+
+            var result = list.ToJson();
+
+        }
+
     }
 }
