@@ -76,6 +76,18 @@ namespace Tracy.Frameworks.LogClient.Helper
         }
 
         /// <summary>
+        /// 写operate log操作日志
+        /// </summary>
+        /// <param name="operateLog"></param>
+        public static void Operate(OperateLog operateLog)
+        {
+            var list = new List<OperateLog>();
+            list.Add(operateLog);
+            var data = list.ToJson();
+            HttpHelper.SendRequestByHttpWebRequest(operateLog.Url, data);
+        }
+
+        /// <summary>
         /// 写业务跟踪日志
         /// </summary>
         /// <param name="traceLog"></param>
@@ -86,6 +98,6 @@ namespace Tracy.Frameworks.LogClient.Helper
             var data = list.ToJson();
             HttpHelper.SendRequestByHttpWebRequest(traceLog.Url, data);
         }
-        
+
     }
 }
