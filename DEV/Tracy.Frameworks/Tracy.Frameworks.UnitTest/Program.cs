@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Tracy.Frameworks.Common.Helpers;
 using EmitMapper;
 using Nelibur.ObjectMapper;
+using Tracy.Frameworks.Common.Extends;
 
 namespace Tracy.Frameworks.UnitTest
 {
@@ -17,7 +18,31 @@ namespace Tracy.Frameworks.UnitTest
         {
             //TestBatchInsertDemo();            
             //TestStopwatch();
-            TestDtoMapper();
+            //TestDtoMapper();
+            TestDeepClonePerf();
+        }
+
+        /// <summary>
+        /// 测试深克隆的性能
+        /// </summary>
+        private static void TestDeepClonePerf()
+        {
+            var iteration = 10 * 10000;
+            CodeTimerHelper.Initialize();
+
+            var input = new DtoFrom
+            {
+                Name = "aaa",
+                Age = 100,
+                CreatedTime = DateTime.Now
+            };
+
+            DtoFrom result = null;
+            CodeTimerHelper.Time("测试深克隆的性能", iteration, () => 
+            {
+                result = input.DeepClone();                
+            });
+            Console.ReadKey();
         }
 
         private static void TestDtoMapper()

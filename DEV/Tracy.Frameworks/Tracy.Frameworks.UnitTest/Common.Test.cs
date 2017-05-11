@@ -9,6 +9,7 @@ using Tracy.Frameworks.Common.Helpers;
 using System.Diagnostics;
 using EmitMapper;
 using EmitMapper.MappingConfiguration;
+using Tracy.Frameworks.UnitTest.Helper;
 
 namespace Tracy.Frameworks.UnitTest
 {
@@ -56,9 +57,80 @@ namespace Tracy.Frameworks.UnitTest
             var result1 = mapper.Map(userFrom);
         }
 
+        [Test]
+        public void Test_Serializable()
+        {
+            //测试Serializable对序列化的影响，将对象序列化成字符串
+            //BinarySerializer，json.net，XmlSerializer和LZ4
+            //结论：特性[Serializable]只对使用BinaryFormatter序列化(序列化成流)的时候有影响，其它的序列化不影响。
+
+            var input = new TestSerializableClass
+            {
+                Id = 1,
+                Name = "aaa",
+                CreatedTime = DateTime.Now
+            };
+
+            //BinarySerializer
+            var result1 = string.Empty;
+            try
+            {
+                result1 = BinarySerializerHelper.Serialize(input);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            //json.net
+            var result2 = string.Empty;
+            try
+            {
+                result2 = input.ToJson();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            //XmlSerializer
+            var result3 = string.Empty;
+            try
+            {
+                result3 = input.ToXml();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
+            //LZ4
+            byte[] result4 = null;
+            try
+            {
+                result4 = input.ToJson().LZ4Compress();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+        }
+
     }
 
-    
+    [Serializable]
+    public class TestSerializableClass
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public DateTime CreatedTime { get; set; }
+
+    }
+
+
 
     public class UserFrom
     {
