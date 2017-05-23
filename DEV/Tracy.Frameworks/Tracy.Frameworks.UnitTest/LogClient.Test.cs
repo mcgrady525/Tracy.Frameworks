@@ -15,6 +15,9 @@ namespace Tracy.Frameworks.UnitTest
     [TestFixture]
     public class LogClient
     {
+        /// <summary>
+        /// 测试调试日志
+        /// </summary>
         [Test]
         public void Test_DebugLog_Insert()
         {
@@ -35,11 +38,14 @@ namespace Tracy.Frameworks.UnitTest
 
         }
 
+        /// <summary>
+        /// 测试操作日志
+        /// </summary>
         [Test]
         public void Test_OperateLog_Insert()
         {
             var list = new List<OperateLog>();
-            var nums = Enumerable.Range(1, 100).ToList();
+            var nums = Enumerable.Range(101, 200).ToList();
             nums.ForEach(i =>
             {
                 list.Add(new OperateLog
@@ -52,7 +58,10 @@ namespace Tracy.Frameworks.UnitTest
                     OperateModule = "OperateModule" + i,
                     OperateType = "OperateType" + i,
                     ModifyBefore = "ModifyBefore" + i,
-                    ModifyAfter = "ModifyAfter" + i
+                    ModifyAfter = "ModifyAfter" + i,
+                    CorpId = i,
+                    CorpName = "CorpName" + i,
+                    Remark = "Remark"+ i
                 });
             });
 
