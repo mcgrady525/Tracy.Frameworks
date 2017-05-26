@@ -117,6 +117,19 @@ namespace Tracy.Frameworks.UnitTest
 
         }
 
+        [Test]
+        public void Test_Extends_AddLastSecond()
+        {
+            var r1 = DateTime.MinValue;
+            var r2 = DateTime.MaxValue;
+            var r3 = default(DateTime);
+            var r4 = r1 == r3;//true
+
+            var r5 = DateTime.Now.AddLastSecond();
+
+        }
+
+
     }
 
     [Serializable]
