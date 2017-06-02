@@ -36,7 +36,7 @@ namespace Tracy.Frameworks.Common.Extends
         #endregion
 
         /// <summary>
-        /// 
+        /// return obj == null;
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -44,6 +44,12 @@ namespace Tracy.Frameworks.Common.Extends
         {
             return obj == null;
         }
+
+        /// <summary>
+        /// return obj != null;
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static bool IsNotNull(this object obj)
         {
             return obj != null;
