@@ -19,7 +19,108 @@ namespace Tracy.Frameworks.UnitTest
             //TestBatchInsertDemo();            
             //TestStopwatch();
             //TestDtoMapper();
-            TestDeepClonePerf();
+            //TestDeepClonePerf();
+            //TestDistinct();
+            TestOrderBy();
+        }
+
+        /// <summary>
+        /// 测试排序
+        /// </summary>
+        private static void TestOrderBy()
+        {
+            var list = new List<TestDistinctClass> 
+            {
+                new TestDistinctClass
+                {
+                    Id= 1,
+                    BunkCode= "A",
+                    BunkPrice= 105
+                },
+                new TestDistinctClass
+                {
+                    Id= 2,
+                    BunkCode= "B",
+                    BunkPrice= 104
+                },
+                new TestDistinctClass
+                {
+                    Id= 3,
+                    BunkCode= "C",
+                    BunkPrice= 103
+                },
+                new TestDistinctClass
+                {
+                    Id= 4,
+                    BunkCode= "D",
+                    BunkPrice= 102
+                },
+                new TestDistinctClass
+                {
+                    Id= 5,
+                    BunkCode= "A",
+                    BunkPrice= 101
+                }
+            };
+
+            //方法1：使用Linq
+            var result1 = list.OrderByDescending(p => p.Id).ToList();
+            var result2 = list.OrderBy(p => p.BunkPrice).ToList();
+
+        }
+
+        /// <summary>
+        /// 测试去重
+        /// </summary>
+        private static void TestDistinct()
+        {
+            var list = new List<TestDistinctClass> 
+            {
+                new TestDistinctClass
+                {
+                    Id= 1,
+                    BunkCode= "A",
+                    BunkPrice= 101
+                },
+                new TestDistinctClass
+                {
+                    Id= 2,
+                    BunkCode= "B",
+                    BunkPrice= 102
+                },
+                new TestDistinctClass
+                {
+                    Id= 3,
+                    BunkCode= "C",
+                    BunkPrice= 103
+                },
+                new TestDistinctClass
+                {
+                    Id= 4,
+                    BunkCode= "D",
+                    BunkPrice= 104
+                },
+                new TestDistinctClass
+                {
+                    Id= 5,
+                    BunkCode= "A",
+                    BunkPrice= 101
+                }
+            };
+
+            //方法1：使用默认的distinct方法
+            //只能针对基元类型列表，对于自定义类型组合字段条件需要自定义相等比较器实现IEqualityComparer接口，比较麻烦
+            var result1 = list.Distinct().ToList();
+
+            //方法2：使用GroupBy
+            var result2 = list.GroupBy(p => new { p.BunkCode, p.BunkPrice })
+                .Select(p => p.First())
+                .ToList();
+
+            //方法3：使用自己扩展的DistinctBy方法
+            //利用HashSet的key不能重复的特性
+            var result3 = list.DistinctBy(p => new { p.BunkCode, p.BunkPrice })
+                .ToList();
         }
 
         /// <summary>
@@ -38,9 +139,9 @@ namespace Tracy.Frameworks.UnitTest
             };
 
             DtoFrom result = null;
-            CodeTimerHelper.Time("测试深克隆的性能", iteration, () => 
+            CodeTimerHelper.Time("测试深克隆的性能", iteration, () =>
             {
-                result = input.DeepClone();                
+                result = input.DeepClone();
             });
             Console.ReadKey();
         }
@@ -163,6 +264,18 @@ namespace Tracy.Frameworks.UnitTest
             Console.ReadKey();
         }
 
+    }
+
+    /// <summary>
+    /// 测试类型
+    /// </summary>
+    public class TestDistinctClass
+    {
+        public int Id { get; set; }
+
+        public string BunkCode { get; set; }
+
+        public double BunkPrice { get; set; }
     }
 
     public class DtoFrom

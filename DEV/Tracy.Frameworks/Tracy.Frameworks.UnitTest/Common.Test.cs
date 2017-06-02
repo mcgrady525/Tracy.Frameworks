@@ -128,66 +128,6 @@ namespace Tracy.Frameworks.UnitTest
             var r5 = DateTime.Now.AddLastSecond();
 
         }
-
-        /// <summary>
-        /// 测试去重
-        /// </summary>
-        [Test]
-        public void Test_Extends_DistinctBy()
-        {
-            var list = new List<TestDistinct>()
-            {
-                new TestDistinct
-                {
-                    Id= 1,
-                    BunkCode= "A",
-                    BunkPrice= 101
-                },
-                new TestDistinct
-                {
-                    Id= 2,
-                    BunkCode= "B",
-                    BunkPrice= 102
-                },
-                new TestDistinct
-                {
-                    Id= 3,
-                    BunkCode= "C",
-                    BunkPrice= 103
-                },
-                new TestDistinct
-                {
-                    Id= 4,
-                    BunkCode= "D",
-                    BunkPrice= 104
-                },
-                new TestDistinct
-                {
-                    Id= 5,
-                    BunkCode= "A",
-                    BunkPrice= 101
-                }
-            };
-
-            var result = list.DistinctBy(p => p.Id).ToList();
-
-            list = list.DistinctBy(p => new { p.BunkCode, p.BunkPrice }).ToList();
-
-
-
-        }
-
-
-    }
-
-    public class TestDistinct
-    {
-        public int Id { get; set; }
-
-        public string BunkCode { get; set; }
-
-        public double BunkPrice { get; set; }
-
     }
 
     [Serializable]
@@ -200,8 +140,6 @@ namespace Tracy.Frameworks.UnitTest
         public DateTime CreatedTime { get; set; }
 
     }
-
-
 
     public class UserFrom
     {
