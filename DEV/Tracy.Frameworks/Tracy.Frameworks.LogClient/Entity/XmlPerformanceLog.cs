@@ -15,20 +15,9 @@ namespace Tracy.Frameworks.LogClient.Entity
     /// </summary>
     public class XmlPerformanceLog : BaseLog
     {
-        private static readonly Process process = Process.GetCurrentProcess();
-
         public XmlPerformanceLog()
         {
             Url = ConfigHelper.GetAppSetting("Log.OpenApi.Url").TrimEnd('/') + "/api/xmlperformancelog/add";
-            MachineName = System.Environment.MachineName;
-            IPAddress = HttpHelper.GetLocalIP();
-            ClientIP = HttpHelper.GetClientIP();
-            ProcessID = process.Id;
-            ProcessName = process.ProcessName;
-            ThreadID = Thread.CurrentThread.ManagedThreadId;
-            ThreadName = Thread.CurrentThread.Name;
-            CreatedTime = DateTime.Now;
-            XmlLog.AppDomainName = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
         }
 
         public XmlLog XmlLog { get; set; }
