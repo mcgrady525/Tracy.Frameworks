@@ -51,6 +51,7 @@
     <Compile Include="Entity\PerformanceLog.cs" />
     <Compile Include="Entity\TraceLog.cs" />
     <Compile Include="Entity\XmlLog.cs" />
+    <Compile Include="Entity\XmlPerformanceLog.cs" />
     <Compile Include="Helper\LogClientHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemCodeConst.cs" />

@@ -99,5 +99,17 @@ namespace Tracy.Frameworks.LogClient.Helper
             HttpHelper.SendRequestByHttpWebRequest(traceLog.Url, data);
         }
 
+        /// <summary>
+        /// 同时写xml日志和性能日志
+        /// </summary>
+        /// <param name="xmlPerformanceLog"></param>
+        public static void XmlPerformance(XmlPerformanceLog xmlPerformanceLog)
+        {
+            var list = new List<XmlPerformanceLog>();
+            list.Add(xmlPerformanceLog);
+            var data = list.ToJson();
+            HttpHelper.SendRequestByHttpWebRequest(xmlPerformanceLog.Url, data);
+        }
+
     }
 }
