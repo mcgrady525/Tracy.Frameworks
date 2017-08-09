@@ -12,7 +12,7 @@ using System.Runtime.Serialization;
  * 更改历史：
  * 
  * *******************************************************/
-namespace Tracy.Frameworks.Common.Result
+namespace Tracy.Frameworks.Common.Results
 {
     /// <summary>
     /// 分页结果接口

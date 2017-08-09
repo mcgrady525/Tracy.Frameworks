@@ -69,5 +69,19 @@ namespace Tracy.Frameworks.UnitTest
 
         }
 
+        [Test]
+        public void Test_HttpHelper_Post()
+        {
+            var debugLog = new DebugLog 
+            {
+                SystemCode = "Ubtrip",
+                Source = "HttpHelper",
+                Message = "Test using httpHelper post!",
+                Detail = "Test using httpHelper post!"
+            };
+            Tracy.Frameworks.LogClient.Helper.LogClientHelper.Debug(debugLog);
+        }
+
+
     }
 }

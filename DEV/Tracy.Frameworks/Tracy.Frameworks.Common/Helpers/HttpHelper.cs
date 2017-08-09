@@ -15,20 +15,30 @@ namespace Tracy.Frameworks.Common.Helpers
     public class HttpHelper
     {
         /// <summary>
-        /// 使用HttpWebRequest，适用于.net2.0~4.0
-        /// 默认使用POST方式发送数据
+        /// 发送POST请求(基于HttpWebRequest)
+        /// .net 4.5+可以考虑使用HttpClient
         /// </summary>
-        /// <param name="url">url</param>
-        /// <param name="jsonData">json格式的数据</param>
+        /// <param name="url"></param>
+        /// <param name="jsonData"></param>
+        /// <param name="timeout">超时设置，默认为3分钟，单位：秒</param>
         /// <returns></returns>
-        public static string SendRequestByHttpWebRequest(string url, string jsonData)
+        public static string Post(string url, string jsonData, int? timeout = 180)
         {
+            if (url.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException("url");
+            }
+
             var result = string.Empty;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
             //设置request属性
             request.Method = "POST";
             request.ContentType = "application/json";
+            if (timeout.HasValue)
+            {
+                request.Timeout = timeout.Value * 1000;
+            }
 
             //写入data
             using (var streamWriter = new StreamWriter(request.GetRequestStream(), Encoding.UTF8))
@@ -45,16 +55,6 @@ namespace Tracy.Frameworks.Common.Helpers
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// 使用HttpClient，适用于.net4.5+
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string SendRequestByHttpClient(string url)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

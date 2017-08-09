@@ -36,7 +36,7 @@ namespace Tracy.Frameworks.LogClient.Helper
             var list = new List<DebugLog> { };
             list.Add(debugLog);
             var data = list.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(debugLog.Url, data);
+            HttpHelper.Post(debugLog.Url, data);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Tracy.Frameworks.LogClient.Helper
             var list = new List<ErrorLog>();
             list.Add(errorLog);
             var data = list.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(errorLog.Url, data);
+            HttpHelper.Post(errorLog.Url, data);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Tracy.Frameworks.LogClient.Helper
             var list = new List<XmlLog>();
             list.Add(xmlLog);
             var data = list.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(xmlLog.Url, data);
+            HttpHelper.Post(xmlLog.Url, data);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Tracy.Frameworks.LogClient.Helper
             var list = new List<PerformanceLog>();
             list.Add(performanceLog);
             var data = list.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(performanceLog.Url, data);
+            HttpHelper.Post(performanceLog.Url, data);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Tracy.Frameworks.LogClient.Helper
             var list = new List<OperateLog>();
             list.Add(operateLog);
             var data = list.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(operateLog.Url, data);
+            HttpHelper.Post(operateLog.Url, data);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Tracy.Frameworks.LogClient.Helper
             var list = new List<TraceLog>();
             list.Add(traceLog);
             var data = list.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(traceLog.Url, data);
+            HttpHelper.Post(traceLog.Url, data);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Tracy.Frameworks.LogClient.Helper
             var list = new List<XmlPerformanceLog>();
             list.Add(xmlPerformanceLog);
             var data = list.ToJson();
-            HttpHelper.SendRequestByHttpWebRequest(xmlPerformanceLog.Url, data);
+            HttpHelper.Post(xmlPerformanceLog.Url, data);
         }
 
     }

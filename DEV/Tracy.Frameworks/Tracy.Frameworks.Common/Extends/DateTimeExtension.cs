@@ -6,7 +6,7 @@ using System.Text;
 namespace Tracy.Frameworks.Common.Extends
 {
     /// <summary>
-    /// datetime扩展
+    /// 日期时间扩展
     /// </summary>
     public static class DateTimeExtension
     {

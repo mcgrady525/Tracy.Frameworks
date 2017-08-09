@@ -128,6 +128,23 @@ namespace Tracy.Frameworks.UnitTest
             var r5 = DateTime.Now.AddLastSecond();
 
         }
+
+        [Test]
+        public void Test_Extends_MD5()
+        {
+            var input = "test";
+            var result = input.ToMD5With32bit();
+        }
+
+        [Test]
+        public void Test_Extends_DES()
+        {
+            var input = "123456";
+            var rs = input.ToDES();
+            var rq = rs.FromDES();
+        
+        }
+
     }
 
     [Serializable]

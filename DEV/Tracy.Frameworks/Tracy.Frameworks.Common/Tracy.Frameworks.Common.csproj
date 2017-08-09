@@ -86,14 +86,9 @@
     <Compile Include="Consts\LogTypeConst.cs" />
     <Compile Include="Consts\RabbitMQExchangeConst.cs" />
     <Compile Include="Consts\RabbitMQQueueConst.cs" />
-    <Compile Include="Exceptions\NoAuthorizationException.cs" />
-    <Compile Include="Exceptions\ValidationException\ValidationEntityState.cs" />
-    <Compile Include="Exceptions\ValidationException\ValidationEntry.cs" />
-    <Compile Include="Exceptions\ValidationException\ValidationError.cs" />
-    <Compile Include="Exceptions\ValidationException\ValidationException.cs" />
-    <Compile Include="Exceptions\ValidationException\ValidationResult.cs" />
     <Compile Include="Extends\AttributeExtension.cs" />
     <Compile Include="Extends\DateTimeExtension.cs" />
+    <Compile Include="Extends\DTOExtension.cs" />
     <Compile Include="Extends\EFExtension.cs" />
     <Compile Include="Extends\IntExtension.cs" />
     <Compile Include="Extends\ObjectExtension.cs" />
@@ -101,17 +96,18 @@
     <Compile Include="Helpers\CacheHelper.cs" />
     <Compile Include="Helpers\CodeTimerHelper.cs" />
     <Compile Include="Helpers\ConfigHelper.cs" />
-    <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\HttpHelper.cs" />
     <Compile Include="Helpers\LoggerHelper.cs" />
     <Compile Include="Helpers\NPOIHelper.cs" />
     <Compile Include="Helpers\RegexHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
-    <Compile Include="Result\PagingResult.cs" />
+    <Compile Include="Results\PagingResult.cs" />
     <Compile Include="Extends\CollectionExtension.cs" />
     <Compile Include="Extends\EnumExtension.cs" />
     <Compile Include="Extends\StringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\RestApiResult.cs" />
+    <Compile Include="Results\ServiceResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

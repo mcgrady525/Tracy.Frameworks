@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Tracy.Frameworks.Common.Extends
 {
     /// <summary>
-    /// Attribute的扩展
+    /// 特性(Attribute)扩展
     /// </summary>
     public static class AttributeExtension
     {

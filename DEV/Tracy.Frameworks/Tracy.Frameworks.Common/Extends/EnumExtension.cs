@@ -11,7 +11,7 @@ using System.IO;
 namespace Tracy.Frameworks.Common.Extends
 {
     /// <summary>
-    /// enum枚举扩展
+    /// 枚举(enum)扩展
     /// </summary>
     public static class EnumExtension
     {

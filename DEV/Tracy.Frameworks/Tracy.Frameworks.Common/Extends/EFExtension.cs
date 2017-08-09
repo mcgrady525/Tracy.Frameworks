@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq.Expressions;
 using System.Data;
 using System.Data.Entity;
-using Tracy.Frameworks.Common.Result;
+using Tracy.Frameworks.Common.Results;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Threading;

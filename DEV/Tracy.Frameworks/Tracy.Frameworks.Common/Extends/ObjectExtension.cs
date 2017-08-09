@@ -6,8 +6,7 @@ using System.Text;
 namespace Tracy.Frameworks.Common.Extends
 {
     /// <summary>
-    /// object对象扩展
-    /// 包括克隆
+    /// object扩展，包括克隆操作
     /// </summary>
     public static class ObjectExtension
     {
@@ -56,6 +55,5 @@ namespace Tracy.Frameworks.Common.Extends
         }
 
         #endregion
-
     }
 }

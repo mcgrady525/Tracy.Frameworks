@@ -8,7 +8,7 @@ using System.Web.Caching;
 namespace Tracy.Frameworks.Common.Helpers
 {
     /// <summary>
-    /// HttpRuntime.Cache缓存封装
+    /// HttpRuntime.Cache缓存封装【后续封装到缓存组件中】
     /// </summary>
     public sealed class CacheHelper
     {
