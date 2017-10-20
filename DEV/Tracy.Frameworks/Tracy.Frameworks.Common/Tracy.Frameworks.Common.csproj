@@ -101,6 +101,7 @@
     <Compile Include="Helpers\NPOIHelper.cs" />
     <Compile Include="Helpers\RegexHelper.cs" />
     <Compile Include="Helpers\SqlHelper.cs" />
+    <Compile Include="Interfaces\ICache.cs" />
     <Compile Include="Results\PagingResult.cs" />
     <Compile Include="Extends\CollectionExtension.cs" />
     <Compile Include="Extends\EnumExtension.cs" />
