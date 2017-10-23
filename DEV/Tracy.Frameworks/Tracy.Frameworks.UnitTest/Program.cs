@@ -9,6 +9,7 @@ using Tracy.Frameworks.Common.Helpers;
 using EmitMapper;
 using Nelibur.ObjectMapper;
 using Tracy.Frameworks.Common.Extends;
+using Tracy.Frameworks.Redis;
 
 namespace Tracy.Frameworks.UnitTest
 {
@@ -21,7 +22,39 @@ namespace Tracy.Frameworks.UnitTest
             //TestDtoMapper();
             //TestDeepClonePerf();
             //TestDistinct();
-            TestOrderBy();
+            //TestOrderBy();
+            TestRedis();
+
+
+        }
+
+        /// <summary>
+        /// redis测试
+        /// </summary>
+        private static void TestRedis()
+        {
+            var redisClient = new RedisWrapper();
+            var result = string.Empty;
+
+            //get
+            var name = redisClient.Get("name");
+
+            if (name.IsNullOrEmpty())
+            {
+                redisClient.GetOrAdd("name", () => { return "kobe"; });
+            }
+
+            //add
+            redisClient.Add("id", "100");
+            result = redisClient.Get("id");
+
+            //update
+            redisClient.Update("id", "101", 3 * 60);
+            result = redisClient.Get("id");
+
+            //remove
+            redisClient.Remove("id");
+            result = redisClient.Get("id");
         }
 
         /// <summary>
