@@ -89,5 +89,11 @@ namespace Tracy.Frameworks.LogClient.Entity
         /// </summary>
         public string Remark { get; set; }
 
+        /// <summary>
+        /// 耗时，单位：ms
+        /// 接口性能放在xml日志中
+        /// </summary>
+        public long Duration { get; set; }
+
     }
 }
